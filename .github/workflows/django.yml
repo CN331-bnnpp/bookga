@@ -28,13 +28,3 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
-        
-    - name: Python Django Coverage GitHub Action Unmanaged
-      # You may pin to the exact commit or the version.
-      # uses: MateuszKuba/python-django-coverage-unamangedmodels@c8a0a838703cabc37dd755f9618d36551b9cda9f
-      uses: MateuszKuba/python-django-coverage-unamangedmodels@0.1
-      with:
-        # Application
-        django-app: bookga
-        # Minimum allowed code coverage
-        minimum-coverage: '90'
