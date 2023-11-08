@@ -8,19 +8,22 @@ from .forms import SignInViaUsernameForm
 def login_view(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
-            pass
-            #render staff page
+            #redirect to staff page
+            #in this step render test page
+            return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
+            
 
         else:
-            pass
-            #render user page
+            #redirect to user page
+            #in this step render test page
+            return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
 
     if request.method == 'GET':
         #in case method is GET, which should not happen. render login form
-        return render(request, 'users/login.html', {'form': SignInViaUsernameForm()})
+        return render(request, 'sign_in/sign-in.html', {'form': SignInViaUsernameForm()})
 
     elif request.method == 'POST':
-        #render a form
+        #redirect to a form
         form = SignInViaUsernameForm(request.POST)
         #if the input is valid
         if form.is_valid():
@@ -43,19 +46,21 @@ def login_view(request):
             login(request, user)
 
             if user.is_staff:
-                pass
-                #render staff page
+                #redirect to staff page
+                #in this step render test page
+                return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
             else:
-                pass
-                #render user page
+                #redirect to user page
+                #in this step render test page
+                return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
 
     #in case everything else, which should not happen. render login form
-    return render(request, 'users/login.html', {'form': SignInViaUsernameForm()})
+    return render(request, 'sign_in/sign-in.html', {'form': SignInViaUsernameForm()})
 
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
-    return redirect('login_view')
+    return redirect('/login')
 
 
 
