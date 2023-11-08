@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{%block title%}
+Sign in to Bookga
+{%endblock%}
+
+{% block body %}
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+            {{ form.username.label_tag }}<br>
+            {{ form.username }}
+            
+        </div>
+        <div class="fieldWrapper">
+            {{ form.password.label_tag }}<br>
+            {{ form.password }}
+            
+        </div>
+
+        <input type="submit" value="Login">
+        <div>
+            {{ form.username.errors }}
+            {{ form.password.errors }}
+        </div>
+        
+    </form>
+    <br>
+    <label>No account? Sign up <a href="/signup">Here.</a></label>
+{%endblock%}
