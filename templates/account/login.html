@@ -5,12 +5,11 @@
     <form action="{% url 'login' %}" method="post">
       {% csrf_token %}
 
-      {% if user_type == "staff" %}
+      {% if user_type == 'staff' %}
         <span>Login Manager</span>
       {% else %}
         <span>Login Employee</span>
       {% endif %}
-      
 
       {% if messages %}
         {% for message in messages %}
@@ -27,9 +26,12 @@
       <span><i class="fa fa-lock" aria-hidden="true"></i></span>
 
       <button type="submit">Login</button>
-      <span>Need an account? 
-        <a href="../signup">Sing Up</a>
-    </span>
+      {% if user_type == 'staff' %}
+        <span>
+          Need an account?
+          <a href="../signup">Sing Up</a>
+        </span>
+      {% endif %}
     </form>
   </body>
 {% endblock %}
