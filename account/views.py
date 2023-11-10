@@ -79,10 +79,10 @@ def signup(request):
 
 def create_member(request):
     user = CreateAccountForm(request.POST)
+    context = {
+        "form": user,
+    }
     if request.method == "GET":
-        context = {
-            "form": user,
-        }
         return render(request, "account/create_member.html", context)
     
     elif request.method == "POST":
@@ -96,8 +96,8 @@ def create_member(request):
             create = group_member.objects.create(username=user, group_name=group.objects.get(group_name=group_name))
             create.save()
             messages.success(request, "Member created successfully.")
-            return redirect("create")
+            return render(request, "account/create_member.html", context)
         messages.success(request, "Member created successfully.")
-        return render(request, "account/create_member.html")
+        return render(request, "account/create_member.html", context)
     
-    return render(request, "account/create_member.html")
+    return render(request, "account/create_member.html", context)
