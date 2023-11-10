@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'about.apps.AboutConfig',
     'account.apps.AccountConfig',
-    #'sign_in',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
