@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from .forms import SignUpForm
-from .models import User, group, group_member
+from django.contrib.auth.models import User
+from .models import group, group_member
 
 # Create your views here.
 def index(request):
-    return render(request, "account/user.html")
+    print(User.objects.count())
+    return render(request, "account/types.html")
+
 @csrf_exempt
-def login(request):
+def login_app(request):
     if request.user.is_authenticated:
         user = request.user
         return render_login(request, user)
@@ -18,13 +21,12 @@ def login(request):
         context = {
             "user_type": request.GET["user"],
         }
-        print(context)
         return render(request, "account/login.html", context)
     
     elif request.method == "POST":
-        users_id = request.POST["users_id"]
+        username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, username=users_id, password=password)
+        user = authenticate(request, username=username, password=password)
         
         if user is not None:
             login(request, user)
@@ -32,6 +34,7 @@ def login(request):
         else:
             messages.error(request, "Invalid username and/or password.")
             return render(request, "account/login.html")
+        
     return render(request, "account/login.html")
 
 def render_login(request, user):
@@ -39,21 +42,28 @@ def render_login(request, user):
        user: user,
       # add
     }
+    if user.is_superuser:
+        return render(request, "account/admin.html", context)
+    elif user.is_staff:
+        return render(request, "account/staff.html", context)
     
-    return render(request, "home/home.html", context)
+    return render(request, "account/user.html", context)
     
 def signup(request):
+    signupForm = UserCreationForm(request.POST)
     if request.method == "GET":
-        signupForm = SignUpForm()
-        return render(request, "account/signup.html")
+        return render(request, "account/signup.html", {"form": signupForm})
     
     elif request.method == "POST":
-        signupForm = SignUpForm(request.POST)
-        
         if signupForm.is_valid():
+            signupForm.instance.is_staff = True
             signupForm.save()
+            username = signupForm.cleaned_data.get('username')
+            password = signupForm.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
             messages.success(request, "Account created successfully.")
-            return redirect("home")
+            return render_login(request, user)
         else:
             messages.error(request, "Invalid form.")
-            return render(request, "account/signup.html")
+            return render(request, "account/signup.html", {"form": signupForm})

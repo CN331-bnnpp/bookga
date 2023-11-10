@@ -1,8 +1,8 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
 {% load static %}
 {% block content %}
-<form action="{% url 'signup' %}" method="post">
-
+  {% comment %} <form action="{% url 'signup' %}" method="post">
+    {% csrf_token %}
     {% if messages %}
       {% for message in messages %}
         <span>{{ message }}</span>
@@ -10,25 +10,33 @@
     {% endif %}
 
     <input type="text" placeholder="Username" name="username" />
-    <span></span>
-    <span><i class="fa fa-user" aria-hidden="true"></i></span>
 
     <input type="text" placeholder="firstname" name="first_name" />
-    <span></span>
-    <span><i class="fa fa-user" aria-hidden="true"></i></span>
 
     <input type="text" placeholder="lastname" name="last_name" />
-    <span></span>
-    <span><i class="fa fa-user" aria-hidden="true"></i></span>
 
     <input type="password" placeholder="Password" name="password1" />
-    <span></span>
-    <span><i class="fa fa-lock" aria-hidden="true"></i></span>
 
     <input type="password" placeholder="confirm Password" name="password2" />
-    <span></span>
-    <span><i class="fa fa-lock" aria-hidden="true"></i></span>
 
     <button type="submit">Sign Up</button>
-  </form>
+  </form> {% endcomment %}
+
+  <h2>Sign up Form</h2>
+<form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+    <p>
+      {{ field.label_tag }}<br>
+      {{ field }}
+      {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+  {% endfor %}
+  <button type="submit">Sign up</button>
+</form>
 {% endblock %}
