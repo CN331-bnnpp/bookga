@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block title %}
+Welcome
+{% endblock %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    Hello ! ,{{ user.username }}
+ <a href='/logout'>Logout</a>
+{% else %}
+    You are not logged in
+{% endif %}
+{% endblock %}
