@@ -1,42 +1,28 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-  {% comment %} <form action="{% url 'signup' %}" method="post">
-    {% csrf_token %}
-    {% if messages %}
-      {% for message in messages %}
-        <span>{{ message }}</span>
-      {% endfor %}
-    {% endif %}
-
-    <input type="text" placeholder="Username" name="username" />
-
-    <input type="text" placeholder="firstname" name="first_name" />
-
-    <input type="text" placeholder="lastname" name="last_name" />
-
-    <input type="password" placeholder="Password" name="password1" />
-
-    <input type="password" placeholder="confirm Password" name="password2" />
-
-    <button type="submit">Sign Up</button>
-  </form> {% endcomment %}
-
   <h2>Sign up Form</h2>
-<form method="post">
-  {% csrf_token %}
-  {% for field in form %}
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br />
+        {{ field }}
+        {% comment %}---------------help_text for create password---------------{% endcomment %}
+        {% comment %}! can be Edited{% endcomment %}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% comment %}---------------help_text for create password---------------{% endcomment %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
     <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-        <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-        <p style="color: red">{{ error }}</p>
-      {% endfor %}
+      Group Name: <br />
+      <input type="text" name="group_name" />
     </p>
-  {% endfor %}
-  <button type="submit">Sign up</button>
-</form>
+    <button type="submit">Sign up</button>
+  </form>
 {% endblock %}
