@@ -10,7 +10,7 @@ class group(models.Model):
     group_name = models.CharField(max_length=20, primary_key=True)
         
     def __str__(self):
-        return f"{self.users_id} {self.group_name}"
+        return f"{self.username} {self.group_name}"
         
     def get_group_name(self):
         return self.group_name
@@ -23,7 +23,7 @@ class group_member(models.Model):
     group_name = models.ForeignKey(group, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.users_id} {self.group_name}"
+        return f"{self.username} {self.group_name}"
     
     def get_group_name(self):
         return self.group_name

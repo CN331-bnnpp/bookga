@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import group, group_member
+from .models import group
 
 # Create your views here.
 def index(request):
@@ -62,6 +62,9 @@ def signup(request):
             password = signupForm.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
+            group_name = request.POST["group_name"]
+            create = group.objects.create(username=user, group_name=group_name)
+            create.save()
             messages.success(request, "Account created successfully.")
             return render_login(request, user)
         else:
