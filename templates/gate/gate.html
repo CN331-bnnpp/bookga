@@ -44,45 +44,52 @@
         <div>
             {{ LoginForm.non_field_errors }}
         </div>
-        <input type="submit" value="Login">
+        <input type="submit" value="login" name='login'>
     </form>
       </div>
       <div id="signup">
         <h2>Sign up</h2>
             <form method="post">
                 {% csrf_token %}
-                {{ SignupForm.non_field_errors }}
+                
                 <div class="field">
                     {{ SignupForm.username.label_tag }}
                     {{ SignupForm.username }}
-                    {{ SignupForm.username.errors }}
+                    
                 </div>
                 <div class="field">
                     {{ SignupForm.email.label_tag }}
                     {{ SignupForm.email }}
-                    {{ SignupForm.email.errors }}
+                    
                 </div>
                 <div class="field">
                     {{ SignupForm.first_name.label_tag }}
                     {{ SignupForm.first_name }}
-                    {{ SignupForm.first_name.errors }}
+                   
                 </div>
                 <div class="field">
                     {{ SignupForm.last_name.label_tag }}
                     {{ SignupForm.last_name }}
-                    {{ SignupForm.last_name.errors }}
+                    
                 </div>
                 <div class="field">
                     {{ SignupForm.password1.label_tag }}
                     {{ SignupForm.password1 }}
-                    {{ SignupForm.password1.errors }}
+                    
                 </div>
                 <div class="field">
                     {{ SignupForm.password2.label_tag }}
                     {{ SignupForm.password2 }}
-                    {{ SignupForm.password2.errors }}
+                    
                 </div>
-                <input type="submit" value="Register">
+                {{ SignupForm.non_field_errors }}
+                {{ SignupForm.username.errors }}
+                {{ SignupForm.email.errors }}
+                {{ SignupForm.first_name.errors }}
+                {{ SignupForm.last_name.errors }}
+                {{ SignupForm.password1.errors }}
+                {{ SignupForm.password2.errors }}
+                <input type="submit" value="signup" name='signup'>
             </form>
                 <label>already have account?<a href='/'>Log in.</a></label>
       </div>
