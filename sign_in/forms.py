@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
+
 class SignInViaUsernameForm(forms.Form):
     username = forms.CharField(label="Username", max_length=25)
     password = forms.CharField(label="Password", max_length=25, widget=forms.PasswordInput)

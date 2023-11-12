@@ -218,5 +218,10 @@ p {
   }
 
   #main{
+    box-sizing: border-box;
     min-height:800px ;
+    padding:15px;
+  }
+  #home{
+    padding:15px;
   }

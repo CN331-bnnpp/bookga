@@ -10,20 +10,13 @@
         {{ field }}
         {% comment %}---------------help_text for create password---------------{% endcomment %}
         {% comment %}! can be Edited{% endcomment %}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
+
         {% comment %}---------------help_text for create password---------------{% endcomment %}
-        {{ SignupForm.non_field_errors }}
-        {{ SignupForm.username.errors }}
-        {{ SignupForm.email.errors }}
-        {{ SignupForm.password1.errors }}
-        {{ SignupForm.password2.errors }}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
+     
       </p>
     {% endfor %}
+       {{ form.non_field_errors }}
+
     <button type="submit">Add</button>
   </form>
 {% endblock %}

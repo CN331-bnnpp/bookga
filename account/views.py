@@ -54,9 +54,11 @@ def render_login(request, user):
 def signup(request):
     signupForm = CreateAccountForm(request.POST)
     if request.method == "GET":
+        signupForm = CreateAccountForm(request.POST)
         return render(request, "account/signup.html", {"form": signupForm})
     
     elif request.method == "POST":
+        signupForm = CreateAccountForm(request.POST)
         if signupForm.is_valid():
             signupForm.instance.is_staff = True
             signupForm.save()
@@ -95,8 +97,7 @@ def create_member(request):
             create = group_member.objects.create(username=user, group_name=group.objects.get(group_name=group_name))
             create.save()
             messages.success(request, "Member created successfully.")
-            return redirect("create")
+            return redirect(request,'login')
         messages.success(request, "Member created successfully.")
         return render(request, "account/create_member.html",{'form':form})
-    
     return render(request, "account/create_member.html")

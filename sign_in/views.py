@@ -6,6 +6,7 @@ from .forms import SignInViaUsernameForm ,createUserForm
 from django.views.decorators.csrf import csrf_exempt
 
 from account.views import *
+from account.models import group
 
 
 @csrf_exempt
@@ -35,6 +36,10 @@ def login_view(request):
                 new_user = signup_form.createUser()
                 if new_user:
                     login(request, new_user)
+                    group_name = new_user.username
+                    create = group.objects.create(username=new_user, group_name=group_name)
+                    create.save()
+                    messages.success(request, "Account created successfully.")
                     # redirect to staff page ,now rendering test page
                     return render_login(request, request.user)
             current_view = 'signup'
