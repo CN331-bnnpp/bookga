@@ -19,7 +19,7 @@ def login_app(request):
     
     if request.method == "GET":
         context = {
-            "user_type": request.GET["user"],
+            # "user_type": request.GET["user"],
         }
         return render(request, "account/login.html", context)
     
