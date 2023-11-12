@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+  <body class="body">
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+
+      {% if user_type == "staff" %}
+        <span>Login Manager</span>
+      {% else %}
+        <span>Login Employee</span>
+      {% endif %}
+      
+
+      {% if messages %}
+        {% for message in messages %}
+          <span>{{ message }}</span>
+        {% endfor %}
+      {% endif %}
+
+      <input type="text" placeholder="Username" name="username" />
+      <span></span>
+      <span><i class="fa fa-user" aria-hidden="true"></i></span>
+
+      <input type="password" placeholder="Password" name="password" />
+      <span></span>
+      <span><i class="fa fa-lock" aria-hidden="true"></i></span>
+
+      <button type="submit">Login</button>
+      <span>Need an account? 
+        <a href="../signup">Sing Up</a>
+    </span>
+    </form>
+  </body>
+{% endblock %}

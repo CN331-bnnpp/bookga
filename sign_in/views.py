@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.core.exceptions import ValidationError
+
+from django.contrib.auth import  login, logout
+
 from .forms import SignInViaUsernameForm ,createUserForm
 from django.views.decorators.csrf import csrf_exempt
 
@@ -16,10 +16,13 @@ def login_view(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
              # redirect to staff page ,now rendering test page
-            return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})
+            return redirect(request,'imin/')
         else:
             # redirect to user page ,now rendering test page
-            return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})
+            return redirect(request,'imin/')
+        
+
+
 
     if request.method == 'POST':
         if 'signup' in request.POST:
@@ -56,3 +59,7 @@ def logout_view(request):
 
 def gate_view(request):
     return render(request,'gate/gate.html',{'user': request.user,'LoginForm': SignInViaUsernameForm(),'SignupForm': createUserForm()})
+
+def imin(request):
+             # redirect to staff page ,now rendering test page
+            return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})

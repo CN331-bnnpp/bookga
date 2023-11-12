@@ -1,13 +1,12 @@
-<!-- {% load static %}-->
-<!DOCTYPE html>
 
+
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="{% static 'gate/gate.css' %}">
-    <link rel="stylesheet" type="text/css" href="gate.css">
+    <link rel="stylesheet" type="text/css" href={% static 'gate/gate.css' %}>
     <title>Bookga</title>
   </head>
   <body>
@@ -91,7 +90,7 @@
                 {{ SignupForm.password2.errors }}
                 <input type="submit" value="signup" name='signup'>
             </form>
-                <label>already have account?<a href='/'>Log in.</a></label>
+                <label>already have account?<a href='#'id='warp-login'>Log in.</a></label>
       </div>
   
     </section>
@@ -102,8 +101,13 @@
     </footer>
   </body>
   <script>
-    var currentView = '{{ current_view }}';
-
+    let currentView = '{{ current_view }}';
+    document.getElementById('warp-login').addEventListener('click', function () {
+      currentView = 'login';
+      document.getElementById('signup').style.display = 'none';
+      document.getElementById('select-role').style.display = 'none';
+      document.getElementById('login').style.display = 'flex';
+    });
   if (currentView === 'login') {
     document.getElementById('signup').style.display = 'none';
     document.getElementById('select-role').style.display = 'none';

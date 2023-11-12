@@ -1,5 +1,13 @@
-from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import AccountUser
 
-class LoginForm(forms.Form):
-    users_id = forms.CharField(label="User ID", max_length=20)
-    password = forms.CharField(label="Password", max_length=20, widget=forms.PasswordInput)
+class CreateAccountForm(UserCreationForm):
+    class Meta:
+        model = AccountUser
+        fields = ("username", "email", "password1", "password2")
+        
+    def save(self, commit=True):
+        user = super(CreateAccountForm, self).save(commit=False)
+        if commit:
+            user.save()
+        return user

@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+  <body class="body">
+    <form action="{% url 'login' %}" method="get">
+      <button type="submit" name="user" value="staff">Manager</button>
+      <button type="submit" name="user" value="member">Employee</button>
+    </form>
+  </body>
+{% endblock %}

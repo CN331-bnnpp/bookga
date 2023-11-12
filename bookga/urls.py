@@ -18,7 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from about import views
 urlpatterns = [
+    path('account/', include('account.urls'), name='account'),
     path('', include('about.urls'), name='about'),
     path('', include('sign_in.urls'), name='sign_in'),
     path('admin/', admin.site.urls),
+    path("debug/", include("debug_toolbar.urls")),
 ]
