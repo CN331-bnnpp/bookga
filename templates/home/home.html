@@ -1,73 +1,103 @@
-<!DOCTYPE html>
+{% extends 'index.html' %}
 {% load static %}
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Bookga</title>
+{% block content %}
+  <body style="overflow-y: scroll;">
+    <header class="p-3 bg-dark text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-start justify-content-lg-between">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <i class="fa-solid fa-calendar-xmark" style="font-size: xx-large;"></i>
+            <h2 class="m-0">BOOKGA</h2>
+          </a>
 
-    <link rel="stylesheet" href="{% static 'home/home.css' %}" />
-    <link rel="stylesheet" href="{% static 'home/nav.css' %}" />
-    <link rel="stylesheet" href="{% static 'home/box-1.css' %}" />
-    <link rel="stylesheet" href="{% static 'home/contact.css' %}" />
-    <link rel="stylesheet" href="{% static 'home/responsive.css' %}" />
-  </head>
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li>
+              <a href="#" class="nav-link px-2 text-secondary">Home</a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 text-white">Features</a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 text-white">Pricing</a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 text-white">FAQs</a>
+            </li>
+            <li>
+              <a href="about" class="nav-link px-2 text-white">About</a>
+            </li>
+          </ul>
 
-  <body>
-    <h2>Bookga</h2>
-    <ul>
-      <li>
-        <a href="about">About</a>
-      </li>
-      <li>
-        <a href="account">Account</a>
-      </li>
-    </ul>
+          <div class="text-end">
+            <a href="/account/login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+            <a href="/account/signup"><button type="button" class="btn btn-warning">Sign-up</button></a>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    <h2>Welcome to Bookga</h2>
-    <p>Bookga is an innovative work-shift scheduling application that allows users to book their workshifts according to their preferences. Our platform provides a convenient way for businesses and employees to manage work schedules effortlessly.</p>
+    <div class="p-5" >
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card h-100">
+          <img src={% static 'images/freepik_01.jpg' %} class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Welcome to Bookga</h5>
+            <p class="card-text">Bookga is an innovative work-shift scheduling application that allows users to book their workshifts according to their preferences. Our platform provides a convenient way for businesses and employees to manage work schedules effortlessly.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src={% static 'images/freepik_03.jpg' %} class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Our Philosophy</h5>
+            <p class="card-text">At Bookga, we believe that the finest ingredients and time-honored traditions make all the difference in creating exceptional baked goods. Our expert bakers use only the highest quality, locally sourced ingredients to craft our delightful assortment of bread, pastries, and cakes. You can taste the love and dedication in every bite.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 
-    <h2># Add Section</h2>
-    <p>At Bookga, we believe that the finest ingredients and time-honored traditions make all the difference in creating exceptional baked goods. Our expert bakers use only the highest quality, locally sourced ingredients to craft our delightful assortment of bread, pastries, and cakes. You can taste the love and dedication in every bite.</p>
+    <div class="card border-light mb-3" style="max-width: 100%;">
+      <div class="card-header"></div>
+      <div class="card-body">
+        <h5 class="card-title"># Add Section (Contact)</h5>
+        <p class="card-text">
+          <strong>Contact Information</strong>                               </br>
+          <strong>Name:</strong> Bookga                                      </br>
+          <strong>Address:</strong> 123 Gourmet Lane, Bakersville, CA 98765  </br>
+          <strong>Phone:</strong> (555) 123-4567                             </br>
+          <strong>Email:</strong>
+          <a href="mailto:support@bookga.com">support@bookga.com</a>
+          <ul>
+            <li>Facebook:<a href="https://www.facebook.com/bookga" target="_blank">@bookga</a></li>
+            <li>Instagram:<a href="https://www.instagram.com/bookga" target="_blank">@bookga</a></li>
+            <li>Twitter:<a href="https://twitter.com/bookga" target="_blank">@bookga</a></li>
+          </ul>
+        </p>
+      </div>
+    </div>
 
-    <h2># Add Section (Contact)</h2>
-    <p>
-      <strong>Contact Information</strong>
-    </p>
-    <p>
-      <strong>Name:</strong> Bookga
-    </p>
-    <p>
-      <strong>Address:</strong> 123 Gourmet Lane, Bakersville, CA 98765
-    </p>
-    <p>
-      <strong>Phone:</strong> (555) 123-4567
-    </p>
-    <p>
-      <strong>Email:</strong>
-      <a href="mailto:support@bookga.com">support@bookga.com</a>
-    </p>
-    <p>
-      <strong>Social Media:</strong>
-    </p>
-    <ul>
-      <li>
-        Facebook:
-        <a href="https://www.facebook.com/bookga" target="_blank">@bookga</a>
-      </li>
-      <li>
-        Instagram:
-        <a href="https://www.instagram.com/bookga" target="_blank">@bookga</a>
-      </li>
-      <li>
-        Twitter:
-        <a href="https://twitter.com/bookga" target="_blank">@bookga</a>
-      </li>
-    </ul>
-
-    <footer>
-      ©2023 Bookga All rights reserved. <br />
-      123 Gourmet Lane, Bakersville, CA 98765
-    </footer>
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-muted">
+          ©2023 Bookga All rights reserved. <br />
+          123 Gourmet Lane, Bakersville, CA 98765
+        </p>
+    
+        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+    
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+      </footer>
+    </div>
   </body>
-</html>
+{% endblock %}
