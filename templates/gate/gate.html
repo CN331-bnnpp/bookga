@@ -31,7 +31,6 @@
         <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
-        {{ LoginForm.non_field_errors }}
         <div class="fieldWrapper">
             {{ LoginForm.username.label_tag }}<br>
             {{ LoginForm.username }}
@@ -42,11 +41,8 @@
             {{ LoginForm.password }}
             
         </div>
-
-        
         <div>
-            {{ LoginForm.username.errors }}
-            {{ LoginForm.password.errors }}
+            {{ LoginForm.non_field_errors }}
         </div>
         <input type="submit" value="Login">
     </form>
@@ -88,25 +84,28 @@
                 </div>
                 <input type="submit" value="Register">
             </form>
-            
+                <label>already have account?<a href='/'>Log in.</a></label>
       </div>
-      <label>already have account?<a href='/'>Log in.</a></label>
+  
     </section>
   </div>
     <footer>
 
       <a href="https://www.freepik.com/free-vector/professional-worker-safety-machine-engineer-character-cartoon-hand-drawn-cartoon-art-illustration_21058101.htm#query=worker&position=0&from_view=search&track=sph">Image by mamewmy</a> on Freepik
     </footer>
-
-
-
-
-
-
-     
-
   </body>
   <script>
+    var currentView = '{{ current_view }}';
+
+  if (currentView === 'login') {
+    document.getElementById('signup').style.display = 'none';
+    document.getElementById('select-role').style.display = 'none';
+    document.getElementById('login').style.display = 'flex';
+  } else if (currentView === 'signup') {
+    document.getElementById('signup').style.display = 'flex';
+    document.getElementById('select-role').style.display = 'none';
+    document.getElementById('login').style.display = 'none';
+  }
     document.getElementById('worker').addEventListener('click', function () {
       document.getElementById('login').style.display = 'flex';
       document.getElementById('select-role').style.display = 'none';
