@@ -1,61 +1,54 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.core.exceptions import ValidationError
-from .forms import SignInViaUsernameForm ,createUserForm
 
+from django.contrib.auth import  login, logout
+
+from .forms import SignInViaUsernameForm ,createUserForm
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
 
 def login_view(request):
+    current_view = ''
+    signup_form = createUserForm()
+    login_form = SignInViaUsernameForm()
+
     if request.user.is_authenticated:
         if request.user.is_staff:
-            #redirect to staff page
-            #in this step render test page
-            return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
-            
-
+             # redirect to staff page ,now rendering test page
+            return redirect(request,'imin/')
         else:
-            #redirect to user page
-            #in this step render test page
-            return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
+            # redirect to user page ,now rendering test page
+            return redirect(request,'imin/')
+        
 
-    if request.method == 'GET':
-        #in case method is GET, which should not happen. render login form
-        render(request,'gate/gate.html',{'user': request.user,'LoginForm': SignInViaUsernameForm(),'SignupForm': createUserForm()})
 
-    elif request.method == 'POST':
-        #redirect to a form
-        form = SignInViaUsernameForm(request.POST)
-        #if the input is valid
-        if form.is_valid():
-            #get and clean the username and password input
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
 
-            #authenticate user using cleaned username and password
-            user = authenticate(request, username=username, password=password)
+    if request.method == 'POST':
+        if 'signup' in request.POST:
+            print('signup is clicked')
+            signup_form = createUserForm(request.POST)
+            if signup_form.is_valid():
+                new_user = signup_form.createUser()
+                if new_user:
+                    login(request, new_user)
+                    # redirect to staff page ,now rendering test page
+                    return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})
+            current_view = 'signup'
 
-            #in case that username and password no match
-            if user is None:
-                raise ValidationError("Invalid username or password!")
+        elif 'login' in request.POST:
+            print('signup is login')
+            login_form = SignInViaUsernameForm(request.POST)
+            if login_form.is_valid():
+                login_form.login(request)
+                 # redirect to user page ,now rendering test page
+                return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})
 
-            #in case that user is not active
-            if not user.is_active:
-                raise ValidationError("This account is inactive.")
+            current_view = 'login'
 
-            #login with authenticated user
-            login(request, user)
+    return render(request, 'gate/gate.html', {'user': request.user, 'LoginForm': login_form, 'SignupForm': signup_form, 'current_view': current_view})
 
-            if user.is_staff:
-                #redirect to staff page
-                #in this step render test page
-                return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
-            else:
-                #redirect to user page
-                #in this step render test page
-                return render(request, 'sign_in\sign-in-test.html',{'user': request.user,'user.username': request.user.username})
 
-    #in case everything else, which should not happen. render login form
-    return render(request,'gate/gate.html',{'user': request.user,'LoginForm': SignInViaUsernameForm(),'SignupForm': createUserForm()})
 
 def logout_view(request):
     if request.user.is_authenticated:
@@ -66,3 +59,7 @@ def logout_view(request):
 
 def gate_view(request):
     return render(request,'gate/gate.html',{'user': request.user,'LoginForm': SignInViaUsernameForm(),'SignupForm': createUserForm()})
+
+def imin(request):
+             # redirect to staff page ,now rendering test page
+            return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})
