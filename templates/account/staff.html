@@ -1,8 +1,9 @@
-{% extends 'index.html' %}
-{% load static %}
-{% block content %}
-  <body class="body">
-    <h1>Staff PAGE</h1>
-    <a href="/account/create" >add Member</a>
-  </body>
+{% extends 'index.html' %} {% load static %} {% block content %}
+<body class="body">
+  {% if user.is_authenticated %} Hello ! ,{{ username }}
+  <h1>Staff PAGE</h1>
+  <a href="/addmember">add Member</a><br>
+  <a href="/logout">Logout</a>
+  {% else %} You are not logged in {% endif %}
+</body>
 {% endblock %}

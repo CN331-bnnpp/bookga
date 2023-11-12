@@ -5,6 +5,8 @@ from django.contrib.auth import  login, logout
 from .forms import SignInViaUsernameForm ,createUserForm
 from django.views.decorators.csrf import csrf_exempt
 
+from account.views import *
+
 
 @csrf_exempt
 
@@ -14,12 +16,13 @@ def login_view(request):
     login_form = SignInViaUsernameForm()
 
     if request.user.is_authenticated:
+             
         if request.user.is_staff:
              # redirect to staff page ,now rendering test page
-            return redirect(request,'imin/')
+            return render_login(request, request.user)
         else:
             # redirect to user page ,now rendering test page
-            return redirect(request,'imin/')
+            return render_login(request, request.user)
         
 
 
@@ -33,7 +36,7 @@ def login_view(request):
                 if new_user:
                     login(request, new_user)
                     # redirect to staff page ,now rendering test page
-                    return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})
+                    return render_login(request, request.user)
             current_view = 'signup'
 
         elif 'login' in request.POST:
@@ -42,10 +45,9 @@ def login_view(request):
             if login_form.is_valid():
                 login_form.login(request)
                  # redirect to user page ,now rendering test page
-                return render(request, 'sign_in/sign-in-test.html', {'user': request.user, 'username': request.user.username})
+                return render_login(request, request.user)
 
             current_view = 'login'
-
     return render(request, 'gate/gate.html', {'user': request.user, 'LoginForm': login_form, 'SignupForm': signup_form, 'current_view': current_view})
 
 

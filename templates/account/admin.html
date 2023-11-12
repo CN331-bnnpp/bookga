@@ -1,7 +1,9 @@
-{% extends 'index.html' %}
-{% load static %}
-{% block content %}
-  <body class="body">
-    <h1>Admin PAGE</h1>
-  </body>
+{% extends 'index.html' %} {% load static %} {% block content %}
+<body class="body">
+  {% if user.is_authenticated %}
+  <h1>Admin PAGE</h1>
+  Hello ! ,{{ username }}
+  <a href="/logout">Logout</a>
+  {% else %} You are not logged in {% endif %}
+</body>
 {% endblock %}

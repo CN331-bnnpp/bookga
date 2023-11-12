@@ -27,9 +27,12 @@
       <span><i class="fa fa-lock" aria-hidden="true"></i></span>
 
       <button type="submit">Login</button>
+      {% if user_type == "staff" %}
       <span>Need an account? 
         <a href="../signup">Sing Up</a>
     </span>
+      {% endif %}
+      
     </form>
   </body>
 {% endblock %}

@@ -1,7 +1,7 @@
-{% extends 'index.html' %}
-{% load static %}
-{% block content %}
-  <body class="body">
-    <h1>User PAGE</h1>
-  </body>
+{% extends 'index.html' %} {% load static %} {% block content %}
+<body class="body">
+  {% if user.is_authenticated %} Hello ! ,{{ username }}
+  <a href="/logout">Logout</a>
+  {% else %} You are not logged in {% endif %}
+</body>
 {% endblock %}

@@ -10,13 +10,38 @@
 
       {% endblock %}
     </title>
-
+    <link rel="stylesheet" href="{% static 'tem1.css' %}" />
     {% comment %} style {% endcomment %}
 
   </head>
-  {% block body %}
-  {% block content %}
 
-  {% endblock %}
-  {% endblock %}
+<body>
+    <nav class="nav">
+      <div class="logo flex-center">
+        <a href="#home"><h2>Bookga</h2></a>
+      </div>
+      <ul class="">
+        <li ><a class="button" href="#about">About</a></li>
+        <li ><a class="button" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <section id="main">
+      <section id="home">
+      {% block body %}
+
+      {% endblock %}  
+      {% block content %}
+
+      {% endblock %}
+        <div class="box-1">
+          </div>
+        <div class="large-gap"></div>
+      </section>
+      
+    </section>
+    <footer class="box-shadow-light flex-center flex-col">
+      ©2023 Bookga All rights reserved. <br />
+      123 Gourmet Lane, Bakersville, CA 98765
+    </footer>
+  </body>
 </html>

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 class SignInViaUsernameForm(forms.Form):
@@ -49,6 +49,7 @@ class createUserForm(UserCreationForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
+        user.is_staff = True
         if commit:
             user.save()
         return user 
@@ -60,6 +61,3 @@ class createUserForm(UserCreationForm):
     
 
 
-
-        
-    
