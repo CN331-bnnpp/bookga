@@ -29,13 +29,13 @@
           </ul>
 
           <div class="text-end">
-            <a href="/account/signup"><button type="button" class="btn btn-outline-light">Login</button></a>
+            <a href="/account/login"><button type="button" class="btn btn-outline-light">Login</button></a>
           </div>
         </div>
       </div>
     </header>
 
-    <div class="card my-5 mx-auto align-items-center" style="width: 25%;">
+    <div class="card my-5 mx-auto align-items-center" style="width: 50%;">
       <div class="card-body">
         <form action="{% url 'login' %}" method="post">
           {% csrf_token %}
@@ -44,23 +44,24 @@
           </div>
           <!-- Username input -->
           {% for field in form %}
-          <div class="form-outline mb-4">
-            <label class="form-label" for="form2Example1">{{ field.label_tag }}</label>
-            <input type="text" id="form2Example1" class="form-control" name={{ field }}>
+          <div class="form-outline mb-2">
+            <label class="form-label mb-0 mt-4" for="form2Example1">{{ field.label_tag }}</label>
+            {{ field }}
           </div>
-          {% if field.help_text %}
-            <div class="alert  alert-light" role="alert">
-              <small>{{ field.help_text }}</small>
-            </div>
-          {% endif %}
-
           {% if field.errors %}
-            <div class="alert alert-danger" role="alert">
+            <div class="my-1 py-1 alert alert-danger" role="alert">
             {% for error in field.errors %}
                 <small>{{ error }}</small>
             {% endfor %}
             </div>
           {% endif %}
+
+          {% if field.help_text %}
+            <div class="m-1 p-1 alert  alert-light" role="alert">
+              <small>{{ field.help_text }}</small>
+            </div>
+          {% endif %}
+
           {% endfor %}
           
           <!-- Group name input -->
@@ -74,27 +75,6 @@
         </form>
       </div>
     </div>
-
-    {% comment %} {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br />
-        {{ field }}
-
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <p>
-      Group Name: <br />
-      <input type="text" name="group_name" />
-    </p>
-    <button type="submit">Sign up</button>
-  </form> {% endcomment %}
 
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
