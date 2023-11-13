@@ -8,8 +8,7 @@ from .models import group, group_member
 
 # Create your views here.
 def index(request):
-    print(AccountUser.objects.count())
-    return render(request, "account/types.html")
+    return redirect("login")
 
 @csrf_exempt
 def login_app(request):
