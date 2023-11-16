@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-rj^5fay!tn73g%%8x1*x)cgsdk)-&(82kg0!$#$xux&1ie6mx!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['139.162.63.39']
+ALLOWED_HOSTS = ['127.0.0.1', '139.162.63.39']
 
 
 # Application definition
@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'about.apps.AboutConfig',
+    'account.apps.AccountConfig',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'bookga.urls'
@@ -70,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -135,13 +139,5 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static') ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# todo deploy:
-# CRISPY_TEMPLATE_PACK = 'bootstrap4'
-# LOGIN_REDIRECT_URL = 'blog-home'
-# LOGIN_URL = 'login'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = config.get('EMAIL_USER')
-# EMAIL_HOST_PASSWORD = config.get('EMAIL_PASS')
+# account user setting
+AUTH_USER_MODEL = 'account.AccountUser'
