@@ -12,12 +12,6 @@ def login_app(request):
         user = request.user
         return render_login(request, user)
     
-    if request.method == "GET":
-        context = {
-            # "user_type": request.GET["user"],
-        }
-        return render(request, "account/login.html", context)
-    
     elif request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password1"]
@@ -42,17 +36,17 @@ def render_login(request, user):
     }
     if user.is_superuser:
         return render(request, "account/admin.html", context)
-    elif user.is_staff:
+    
+    if user.is_staff:
         return render(request, "account/staff.html", context)
     
     return render(request, "account/user.html", context)
     
 def signup(request):
     signupForm = CreateAccountForm(request.POST)
-    if request.method == "GET":
-        return render(request, "account/signup.html", {"form": signupForm})
+
     
-    elif request.method == "POST":
+    if request.method == "POST":
         if signupForm.is_valid():
             signupForm.instance.is_staff = True
             signupForm.save()
@@ -79,16 +73,13 @@ def create_member(request):
         members = group_member.objects.filter(group_name=group.objects.get(username=request.user).group_name)
         members = members.values_list("username")
         members = AccountUser.objects.filter(id__in=members)
-    print(members)
     context = {
         "form": form,
         "fields": fields,
         "members": members,
     }
-    if request.method == "GET":
-        return render(request, "account/create_member.html", context)
     
-    elif request.method == "POST":
+    if request.method == "POST":
         if form.is_valid():
             form.instance.is_staff = False
             form.save()
@@ -100,7 +91,5 @@ def create_member(request):
             create.save()
             messages.success(request, "Member created successfully.")
             return render(request, "account/create_member.html", context)
-        messages.success(request, "Member created successfully.")
-        return render(request, "account/create_member.html", context)
     
     return render(request, "account/create_member.html", context)
