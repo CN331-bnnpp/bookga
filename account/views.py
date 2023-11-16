@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import CreateAccountForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from .models import group, group_member
+from .models import AccountUser, group, group_member
 
 # Create your views here.
 @csrf_exempt
@@ -33,7 +33,7 @@ def login_app(request):
 
 def logout_app(request):
     logout(request)
-    return redirect("")
+    return redirect("home")
 
 def render_login(request, user):
     context = {
@@ -72,23 +72,28 @@ def signup(request):
     return render(request, "account/signup.html", {"form": signupForm})
 
 def create_member(request):
-    user = CreateAccountForm(request.POST)
+    form = CreateAccountForm(request.POST)
     members = None
+    fields = ["username", "email", "name"]
     if group_member.objects.count() > 0:
-        members = group_member.objects.get(group_name=group.objects.get(username=request.user).group_name)
+        members = group_member.objects.filter(group_name=group.objects.get(username=request.user).group_name)
+        members = members.values_list("username")
+        members = AccountUser.objects.filter(id__in=members)
+    print(members)
     context = {
-        "form": user,
+        "form": form,
+        "fields": fields,
         "members": members,
     }
     if request.method == "GET":
         return render(request, "account/create_member.html", context)
     
     elif request.method == "POST":
-        if user.is_valid():
-            user.instance.is_staff = False
-            user.save()
-            username = user.cleaned_data.get('username')
-            password = user.cleaned_data.get('password1')
+        if form.is_valid():
+            form.instance.is_staff = False
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             group_name = group.objects.get(username=request.user).group_name
             create = group_member.objects.create(username=user, group_name=group.objects.get(group_name=group_name))

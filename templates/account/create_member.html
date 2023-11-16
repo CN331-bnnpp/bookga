@@ -11,7 +11,7 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
           <li><a href="about" class="nav-link px-2 text-white">About</a></li>
         </ul>
 
@@ -22,6 +22,30 @@
     </div>
   </header>
 
+  <div class="card my-5 ml-5 align-items-center justify-content-md-start position-absolute" style="width: 50%;">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          {% for field in fields %}
+            <th scope="col">{{field}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in members %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
   <div class="card my-5 ml-auto mr-5 align-items-center justify-content-md-end" style="width: 40%;">
     <div class="card-body">
       <form action="{% url 'create' %}" method="post">
@@ -29,6 +53,11 @@
         <div class="form-outline mb-4">
           <h2 class="text-center">ADD USERS</h2>
         </div>
+        {% for message in messages %}
+            <div class="my-1 py-1 alert alert-success" role="alert">
+                <small>{{ message }}</small>
+            </div>
+          {% endfor %}
         <!-- Username input -->
         {% for field in form %}
         <div class="form-outline mb-2">
