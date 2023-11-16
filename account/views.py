@@ -3,13 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import CreateAccountForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from .models import AccountUser
 from .models import group, group_member
 
 # Create your views here.
-def index(request):
-    return redirect("login")
-
 @csrf_exempt
 def login_app(request):
     if request.user.is_authenticated:
@@ -24,9 +20,8 @@ def login_app(request):
     
     elif request.method == "POST":
         username = request.POST["username"]
-        password = request.POST["password"]
+        password = request.POST["password1"]
         user = authenticate(request, username=username, password=password)
-        
         if user is not None:
             login(request, user)
             return render_login(request, user)
@@ -78,8 +73,12 @@ def signup(request):
 
 def create_member(request):
     user = CreateAccountForm(request.POST)
+    members = None
+    if group_member.objects.count() > 0:
+        members = group_member.objects.get(group_name=group.objects.get(username=request.user).group_name)
     context = {
         "form": user,
+        "members": members,
     }
     if request.method == "GET":
         return render(request, "account/create_member.html", context)
