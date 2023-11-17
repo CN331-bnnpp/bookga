@@ -17,12 +17,12 @@ account\models.py                       13      0   100%
 account\urls.py                          3      0   100%
 account\views.py                        71      0   100%
 bookga\__init__.py                       0      0   100%
-bookga\asgi.py                           4      4     0%
+bookga\asgi.py                           0      0   100%
 bookga\settings.py                      24      1    96%
 bookga\urls.py                           3      0   100%
-bookga\wsgi.py                           4      4     0%
+bookga\wsgi.py                           0      0   100%
 manage.py                               12      2    83%
 tests\test_about.py                     24      0   100%
 tests\test_account.py                  117      0   100%
 --------------------------------------------------------
-TOTAL                                  332     11    97%
+TOTAL                                  324      3    99%
