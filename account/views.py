@@ -77,7 +77,7 @@ def signup(request):
     return render(request, "account/signup.html", {"form": signupForm})
 
 def create_member(request):
-    user = CreateAccountForm(request.POST)
+    form = CreateAccountForm(request.POST)
     context = {
         "form": user,
     }
@@ -85,11 +85,11 @@ def create_member(request):
         return render(request, "account/create_member.html", context)
     
     elif request.method == "POST":
-        if user.is_valid():
-            user.instance.is_staff = False
-            user.save()
-            username = user.cleaned_data.get('username')
-            password = user.cleaned_data.get('password1')
+        if form.is_valid():
+            form.instance.is_staff = False
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             group_name = group.objects.get(username=request.user).group_name
             create = group_member.objects.create(username=user, group_name=group.objects.get(group_name=group_name))
