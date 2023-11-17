@@ -1,6 +1,6 @@
 from django.test import TestCase
-from models import Reservation, SimpleReservation, Holiday
-from django.core.urlresolvers import reverse
+from .models import Reservation, SimpleReservation, Holiday
+from django.urls import reverse
 from django.test.client import Client
 from django.test.utils import override_settings
 # from django.conf import settings
@@ -8,7 +8,8 @@ import json
 from django.db import models
 import datetime as dt
 from datetime import datetime
-from . import update_model
+from .views import update_model
+from account.models import AccountUser 
 
 
 class ExtendedReservation(Reservation):
@@ -25,7 +26,7 @@ class TestLoggedIn(TestCase):
     def setUp(self):
         # Create test user in DB
         from django.contrib.auth.models import User
-        user = User.objects.create_user('fred', 'fred@astor.com', 'astor')
+        user = AccountUser.objects.create_user('fred', 'fred@astor.com', 'astor')
         user.save()
         self.client = Client()
         self.client.login(username='fred', password='astor')
@@ -88,13 +89,13 @@ class TestLoggedIn(TestCase):
         """User should not be able to make a reservation without required fields"""
         update_model(ExtendedReservation)
         response = self.client.post(reverse('reservations_reservation'), self.reservtion_data['simple'], follow=True)
-        self.assertTrue("errors" in response.content)
+        self.assertContains(response, "errors")
         self.assertEqual(ExtendedReservation.objects.all().count(), 0)
         # Provide some extra data
         extendedData = self.reservtion_data['simple'].copy()
         extendedData['extra_data_required'] = "foo"
         response = self.client.post(reverse('reservations_reservation'), extendedData, follow=True)
-        self.assertFalse("errors" in response.content)
+        self.assertNotContains(response, "errors")
         self.assertEqual(ExtendedReservation.objects.all().count(), 1)
 
     def test_holiday(self):

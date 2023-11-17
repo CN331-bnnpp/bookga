@@ -1,9 +1,8 @@
-from django import forms
-from django.forms.forms import BoundField
+from django.forms import ModelForm ,BoundField
 from django.template import Context, loader
 
 
-class TemplatedForm(forms.ModelForm):
+class TemplatedForm(ModelForm):
     '''
     From http://djangosnippets.org/snippets/121/
     '''

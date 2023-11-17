@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from account.models import AccountUser
 
 
 class Reservation(models.Model):
     """Reservation model - who made a reservation and when"""
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(AccountUser, on_delete=models.CASCADE)
     date = models.DateTimeField(null=False, blank=False)
     # Timestamps
     created = models.DateTimeField(auto_now_add=True)
