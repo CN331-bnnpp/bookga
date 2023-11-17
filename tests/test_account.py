@@ -4,7 +4,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from account.models import AccountUser, group, group_member
-
+import unittest
 
 
 class AccountUserTest(TestCase):
@@ -41,7 +41,25 @@ class AccountUserTest(TestCase):
         self.assertEqual(self.staff_user.email, "")
         self.assertTrue(self.staff_user.is_staff)
         self.assertFalse(self.staff_user.is_superuser)
-            
+
+class GroupModelTestCase(TestCase):
+    
+    def setUp(self):
+        self.user = AccountUser.objects.create(username="testuser", is_staff=True)
+        self.group = group.objects.create(username=self.user, group_name="TestGroup")
+
+    def test_group_str_method(self):
+        self.assertEqual(str(self.group), "TestGroup")
+
+    def test_group_model_instance(self):
+        self.assertIsInstance(self.group, group)
+
+    def test_group_username_is_staff(self):
+        self.assertTrue(self.group.username.is_staff)
+
+    def test_group_primary_key(self):
+        self.assertTrue(group._meta.pk.name == 'group_name')
+
 class GroupMemberTest(TestCase):
     
     def setUp(self):
