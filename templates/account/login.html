@@ -11,21 +11,8 @@
           </a>
 
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li>
-              <a href="#" class="nav-link px-2 text-secondary">Home</a>
-            </li>
-            <li>
-              <a href="#" class="nav-link px-2 text-white">Features</a>
-            </li>
-            <li>
-              <a href="#" class="nav-link px-2 text-white">Pricing</a>
-            </li>
-            <li>
-              <a href="#" class="nav-link px-2 text-white">FAQs</a>
-            </li>
-            <li>
-              <a href="about" class="nav-link px-2 text-white">About</a>
-            </li>
+            <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
+            <li><a href="about" class="nav-link px-2 text-white">About</a></li>
           </ul>
 
           <div class="text-end">
@@ -42,6 +29,14 @@
           <div class="form-outline mb-4">
             <h2 class="text-center">Log in</h2>
           </div>
+
+          <!-- Error Messege-->
+          {% for message in messages %}
+            <div class="my-1 py-1 alert alert-danger" role="alert">
+                <small>{{ message }}</small>
+            </div>
+          {% endfor %}
+
           <!-- Username input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="form2Example1">Username</label>
@@ -51,11 +46,11 @@
           <!-- Password input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="form2Example2">Password</label>
-            <input type="password" id="form2Example2" class="form-control" name="password" />
+            <input type="password" id="form2Example2" class="form-control" name="password1" />
           </div>
           
           <!-- Submit button -->
-          <button type="button" class="btn btn-warning btn-block mb-4">Login</button>
+          <button type="submit" class="btn btn-warning btn-block mb-4">Login</button>
           
           <!-- Register buttons -->
           <div class="text-center">
