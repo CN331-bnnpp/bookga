@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .forms import ShiftForm ,BookingForm
-from .models import Shift, ShiftUser
-from account.models import group, group_member
+from .forms import ShiftForm 
+from .models import Shift
+from account.models import group
 
 # Create your views here.
 def add_shift(request):

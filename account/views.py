@@ -10,16 +10,15 @@ from .models import AccountUser, group, group_member
 def login_app(request):
     if request.user.is_authenticated:
         user = request.user
-        return render_login(request)
+        return render_login(request, user)
     
     elif request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password1"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request,user)
-            request.user = user
-            return render_login(request)
+            login(request, user)
+            return render_login(request, user)
         else:
             messages.error(request, "Invalid username and/or password.")
             return render(request, "account/login.html")
@@ -31,12 +30,18 @@ def logout_app(request):
     return redirect("home")
 
 
-def render_login(request):
-    user = request.user
-    if user.is_superuser or user.is_staff:
-        return redirect('/staff')
-
-    return redirect('/user')
+def render_login(request, user):
+    context = {
+       user: user,
+      # add
+    }
+    if user.is_superuser:
+        return render(request, "account/admin.html", context)
+    
+    if user.is_staff:
+        return render(request, "account/staff.html", context)
+    
+    return render(request, "account/user.html", context)
 
 @csrf_exempt
 def signup(request):
@@ -54,8 +59,7 @@ def signup(request):
             create = group.objects.create(username=user, group_name=group_name)
             create.save()
             messages.success(request, "Account created successfully.")
-            request.user = user
-            return render_login(request)
+            return render_login(request, user)
         else:
             messages.error(request, "Invalid form.")
             return render(request, "account/signup.html", {"form": signupForm})
@@ -82,6 +86,7 @@ def create_member(request):
                 members = group_member.objects.filter(group_name=group.objects.get(username=request.user).group_name)
                 members = members.values_list("username")
                 members = AccountUser.objects.filter(id__in=members)
+                
             context = {
                 "form": form,
                 "fields": fields,
@@ -95,29 +100,10 @@ def create_member(request):
         members = group_member.objects.filter(group_name=group.objects.get(username=request.user).group_name)
         members = members.values_list("username")
         members = AccountUser.objects.filter(id__in=members)
+        
     context = {
         "form": form,
         "fields": fields,
         "members": members,
     }
-    return render(request, "account/create_member.html", context)
-
-from django.shortcuts import render, redirect
-
-def staff_view(request):
-    user = request.user
-    context = {'user': user} 
-
-    if user.is_authenticated and (user.is_superuser or user.is_staff):
-        return render(request, "account/staff.html", context)
-    
-    return redirect('/user')  
-
-def user_view(request):
-    user = request.user
-    context = {'user': user}  
-
-    if user.is_authenticated:
-        return render(request, "account/user.html", context)
-    
-    return redirect('/login')  
+    return render(request, "account/create_member.html", context) 
