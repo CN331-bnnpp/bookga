@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<p1>shifts avaliable</p1>
+{% for shift in shifts %}
+    <div>
+        {% csrf_token %}
+        <p>{{ shift.start_time }} - {{ shift.num_hours }} hours  <input type="submit" value="Book Shift"></p>
+            
+            
+    </div>
+{% endfor %}
+
+{% endblock %}

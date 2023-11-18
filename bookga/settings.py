@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'shift.apps.ShiftConfig',
     'fontawesomefree',
-    'reserve.apps.ReserveConfig'
 ]
 
 MIDDLEWARE = [

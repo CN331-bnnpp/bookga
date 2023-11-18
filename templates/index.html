@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
   <head>
     {% load static %}
@@ -9,7 +9,11 @@
       {% block title %}
 
       {% endblock %}
+      
     </title>
+    {% block extrahead %}
+{% endblock %}
+
 
     {% comment %} style {% endcomment %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
