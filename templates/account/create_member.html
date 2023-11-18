@@ -22,11 +22,7 @@
     </div>
   </header>
 
-  <div class="row p-5">
-    
-    <div class="col-sm-7">
-    <div class="card h-100">
-  
+  <div class="card my-5 ml-5 align-items-center justify-content-md-start position-absolute" style="width: 50%;">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -48,11 +44,9 @@
       </tbody>
     </table>
   </div>
-  </div>
 
 
-  <div class="col-sm-5">
-    <div class="card h-100">
+  <div class="card my-5 ml-auto mr-5 align-items-center justify-content-md-end" style="width: 40%;">
     <div class="card-body">
       <form action="{% url 'create' %}" method="post">
         {% csrf_token %}
@@ -91,10 +85,6 @@
       </form>
     </div>
   </div>
-  </div>
-    </div>
-</div>
-</div>
 
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -109,7 +99,7 @@
   
       <ul class="nav col-md-4 justify-content-end">
         <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><a href="about" class="nav-link px-2 text-muted">About</a></li>
       </ul>
     </footer>
   </div>
