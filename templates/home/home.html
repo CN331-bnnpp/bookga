@@ -1,50 +1,53 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-  <body style="overflow-y: scroll;">
-    <header class="p-3 bg-dark text-white">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-start justify-content-lg-between">
-          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-            <i class="fa-solid fa-calendar-xmark" style="font-size: xx-large;"></i>
-            <h2 class="m-0">BOOKGA</h2>
-          </a>
+<body style="overflow-y: scroll;">
+  <header class="p-3 bg-dark text-white">
+    <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-start justify-content-lg-between">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <i class="fa-solid fa-calendar-xmark" style="font-size: xx-large;"></i>
+        <h2 class="m-0">BOOKGA</h2>
+      </a>
 
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
-            <li><a href="about" class="nav-link px-2 text-white">About</a></li>
-          </ul>
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li class="nav-item" ><a href="/" class="nav-link px-2 text-light">Home</a></li>
+        <li class="nav-item" ><a href="/about" class="nav-link px-2 text-white">About</a></li>
+      </ul>
 
-          <div class="text-end">
-            <a href="/account/login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
-            <a href="/account/signup"><button type="button" class="btn btn-warning">Sign-up</button></a>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <div class="p-5" >
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <img src={% static 'images/freepik_01.jpg' %} class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Welcome to Bookga</h5>
-            <p class="card-text">Bookga is an innovative work-shift scheduling application that allows users to book their workshifts according to their preferences. Our platform provides a convenient way for businesses and employees to manage work schedules effortlessly.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src={% static 'images/freepik_03.jpg' %} class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Our Philosophy</h5>
-            <p class="card-text">At Bookga, we believe that the finest ingredients and time-honored traditions make all the difference in creating exceptional baked goods. Our expert bakers use only the highest quality, locally sourced ingredients to craft our delightful assortment of bread, pastries, and cakes. You can taste the love and dedication in every bite.</p>
-          </div>
-        </div>
+      <div class="text-end">
+        <a href="/account/login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+        <a href="/account/signup"><button type="button" class="btn btn-warning">Sign-up</button></a>
       </div>
     </div>
     </div>
+  </header>
+
+  <div class="p-5" >
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    
+  <div class="col-sm">
+  <div class="card h-100">
+    <img src={% static 'images/freepik_01.jpg' %} class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Welcome to Bookga</h5>
+      <p class="card-text">Bookga is an innovative work-shift scheduling application that allows users to book their workshifts according to their preferences. Our platform provides a convenient way for businesses and employees to manage work schedules effortlessly.</p>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-sm">
+  <div class="card h-100">
+    <img src={% static 'images/freepik_03.jpg' %} class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Our Philosophy</h5>
+      <p class="card-text">At Bookga, we believe that the finest ingredients and time-honored traditions make all the difference in creating exceptional baked goods. Our expert bakers use only the highest quality, locally sourced ingredients to craft our delightful assortment of bread, pastries, and cakes. You can taste the love and dedication in every bite.</p>
+    </div>
+  </div>
+  </div>
+  
+  </div>
+  </div>
 
     <div class="card border-light mb-3" style="max-width: 100%;">
       <div class="card-header"></div>

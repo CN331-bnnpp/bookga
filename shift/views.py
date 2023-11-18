@@ -18,7 +18,7 @@ def add_shift(request):
         if form.is_valid():
             form.instance.group_name = group.objects.get(username=request.user)
             form.save()
-            
             return render(request, "shift/add.html", context)
         
+    print(table.values_list('start_time', flat=True)[0])
     return render(request, "shift/add.html", context)
