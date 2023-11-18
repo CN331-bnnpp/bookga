@@ -21,3 +21,8 @@ class ShiftForm(forms.ModelForm):
         if commit:
             shift.save()
         return shift
+    
+
+
+class BookingForm(forms.Form):
+    shift = forms.ModelChoiceField(queryset=Shift.objects.all(), label='Select Shift')
