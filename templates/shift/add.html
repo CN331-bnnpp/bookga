@@ -22,7 +22,7 @@
     </div>
   </header>
 
-  <div class="card my-5 ml-5 align-items-center justify-content-md-start position-absolute" style="width: 50%;">
+  <div class="card my-5 ml-5 align-items-center justify-content-md-start position-absolute" style="width: 65%; ">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -33,12 +33,12 @@
         </tr>
       </thead>
       <tbody>
-        {% for user in members %}
+        {% for row in table %}
           <tr>
             <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ row.start_time }}</td>
+            <td>&emsp;{{ row.num_hours }}</td>
+            <td>&emsp;{{ row.num_people }}</td>
           </tr>
         {% endfor %}
       </tbody>
@@ -46,19 +46,19 @@
   </div>
 
 
-  <div class="card my-5 ml-auto mr-5 align-items-center justify-content-md-end" style="width: 40%;">
+  <div class="card my-5 ml-auto mr-5 align-items-center justify-content-md-end" style="width: 25%;">
     <div class="card-body">
-      <form action="{% url 'create' %}" method="post">
+      <form action="{% url 'add' %}" method="post">
         {% csrf_token %}
         <div class="form-outline mb-4">
-          <h2 class="text-center">ADD USERS</h2>
+          <h2 class="text-center">ADD SHIFT</h2>
         </div>
         {% for message in messages %}
             <div class="my-1 py-1 alert alert-success" role="alert">
                 <small>{{ message }}</small>
             </div>
           {% endfor %}
-        <!-- Username input -->
+        <!-- Date time input -->
         {% for field in form %}
         <div class="form-outline mb-2">
           <label class="form-label mb-0 mt-4" for="form2Example1">{{ field.label_tag }}</label>
@@ -69,12 +69,6 @@
           {% for error in field.errors %}
               <small>{{ error }}</small>
           {% endfor %}
-          </div>
-        {% endif %}
-
-        {% if field.help_text %}
-          <div class="m-1 p-1 alert  alert-light" role="alert">
-            <small>{{ field.help_text }}</small>
           </div>
         {% endif %}
 

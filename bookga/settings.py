@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'about.apps.AboutConfig',
     'account.apps.AccountConfig',
+    'shift.apps.ShiftConfig',
     'fontawesomefree',
     'reserve.apps.ReserveConfig'
 ]
