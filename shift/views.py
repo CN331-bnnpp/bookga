@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from .forms import ShiftForm
-from .models import Shift
-from account.models import group
+from django.shortcuts import render ,redirect
+from .forms import ShiftForm ,BookingForm
+from .models import Shift, ShiftUser
+from account.models import group, group_member
 
 # Create your views here.
 def add_shift(request):
@@ -22,3 +22,17 @@ def add_shift(request):
         
     print(table.values_list('start_time', flat=True)[0])
     return render(request, "shift/add.html", context)
+
+
+
+
+def shifts_view(request):
+    user_group = group_member.objects.filter(username=request.user).first()
+
+    if user_group:
+        shifts = Shift.objects.filter(group_name=user_group.group_name)
+
+        return render(request, 'shift/shifts.html', {'shifts': shifts})
+    else:
+        print('error no group')
+        return render(request, 'shift/shifts.html')

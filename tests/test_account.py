@@ -4,8 +4,6 @@
 from django.test import TestCase
 from django.urls import reverse
 from account.models import AccountUser, group, group_member
-import unittest
-
 
 class AccountUserTest(TestCase):
 
