@@ -4,84 +4,82 @@
 <body style="overflow-y: scroll;">
   <header class="p-3 bg-dark text-white">
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-start justify-content-lg-between">
-          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-            <i class="fa-solid fa-calendar-xmark" style="font-size: xx-large;"></i>
-            <h2 class="m-0">BOOKGA</h2>
-          </a>
+    <div class="d-flex flex-wrap align-items-center justify-content-start justify-content-lg-between">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <i class="fa-solid fa-calendar-xmark" style="font-size: xx-large;"></i>
+        <h2 class="m-0">BOOKGA</h2>
+      </a>
 
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="" class="nav-link px-2 text-light">Home</a></li>
-            <li><a href="about" class="nav-link px-2 text-white">About</a></li>
-          </ul>
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
+        <li><a href="/about" class="nav-link px-2 text-white">About</a></li>
+      </ul>
 
-          <div class="text-end">
-            <a href="/account/login"><button type="button" class="btn btn-outline-light">Login</button></a>
-          </div>
-        </div>
+      <div class="text-end">
+        <a href="/account/login"><button type="button" class="btn btn-outline-light me-2">Log in</button></a>
       </div>
-    </header>
+    </div>
+    </div>
+  </header>
 
     <div class="card my-5 mx-auto align-items-center" style="width: 50%;">
       <div class="card-body">
-        <form action="{% url 'signup' %}" method="post">
-          {% csrf_token %}
-          <div class="form-outline mb-4">
-            <h2 class="text-center">SING UP</h2>
-          </div>
-          <!-- Username input -->
-          {% for field in form %}
-          <div class="form-outline mb-2">
-            <label class="form-label mb-0 mt-4" for="form2Example1">{{ field.label_tag }}</label>
-            {{ field }}
-          </div>
-          {% if field.errors %}
-            <div class="my-1 py-1 alert alert-danger" role="alert">
-            {% for error in field.errors %}
-                <small>{{ error }}</small>
-            {% endfor %}
-            </div>
-          {% endif %}
-
-          {% if field.help_text %}
-            <div class="m-1 p-1 alert  alert-light" role="alert">
-              <small>{{ field.help_text }}</small>
-            </div>
-          {% endif %}
-
+      <form action="{% url 'signup' %}" method="post">
+        {% csrf_token %}
+        <div class="form-outline mb-4">
+          <h2 class="text-center">Sign up</h2>
+        </div>
+        <!-- Username input -->
+        {% for field in form %}
+        <div class="form-outline mb-2">
+          <label class="form-label mb-0 mt-4" for="form2Example1">{{ field.label_tag }}</label>
+          {{ field }}
+        </div>
+        {% if field.errors %}
+          <div class="my-1 py-1 alert alert-danger" role="alert">
+          {% for error in field.errors %}
+              <small>{{ error }}</small>
           {% endfor %}
-          
-          <!-- Group name input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="form2Example2">Group name</label>
-            <input type="text" id="form2Example2" class="form-control" name="group_name">
           </div>
+        {% endif %}
+
+        {% if field.help_text %}
+          <div class="m-1 p-1 alert  alert-light" role="alert">
+            <small>{{ field.help_text }}</small>
+          </div>
+        {% endif %}
+        {% endfor %}
           
-          <!-- Submit button -->
-          <button type="submit" class="btn btn-warning btn-block mb-4">Sing Up</button>
-        </form>
+        <!-- Group name input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form2Example2">Group name</label>
+          <input type="text" id="form2Example2" class="form-control" name="group_name">
+        </div>
+        
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-warning btn-block mb-4">Sign Up</button>
+      </form>
       </div>
     </div>
 
   <div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <p class="col-md-4 mb-0 text-muted">
-        ©2023 Bookga All rights reserved. <br />
-        123 Gourmet Lane, Bakersville, CA 98765
-      </p>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="col-md-4 mb-0 text-muted">
+      ©2023 Bookga All rights reserved. <br/>
+      123 Gourmet Lane, Bakersville, CA 98765
+    </p>
   
-      <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-      </a>
+    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    </a>
   
-      <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-      </ul>
-    </footer>
+<!--
+    <ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="/account/about" class="nav-link px-2 text-muted">About</a></li>
+    </ul>
+-->
+  </footer>
   </div>
-  </body>
+</body>
 {% endblock %}
