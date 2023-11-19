@@ -142,10 +142,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.AccountUser'
 
 
-
 #There settings are for reservation settings
-RESERVATIONS_PER_DAY = 8
-RESERVATION_SPOTS_TOTAL = 24
-APP_SHORTNAME = 'bookga'
-APP_URL = 'http://bookga.com'
-EMAIL_FROM = 'noreply@bookga.com'
+# RESERVATIONS_PER_DAY = 8
+# RESERVATION_SPOTS_TOTAL = 24
+# APP_SHORTNAME = 'bookga'
+# APP_URL = 'http://bookga.com'
+# EMAIL_FROM = 'noreply@bookga.com'

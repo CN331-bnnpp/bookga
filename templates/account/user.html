@@ -1,11 +1,11 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block box %}
+{% block content %}
   <body class="body min">
 
     <h1>User PAGE</h1>
     Hi {{user.username}}<br>
-    <a href="/shift" >see shifts</a><br>
-    <a href="/logout" >logout</a>
+    <a href="/shift/book" >lookup shifts</a><br>
+    <a href="/account/logout" >logout</a>
   </body>
 {% endblock %}

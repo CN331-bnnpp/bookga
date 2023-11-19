@@ -16,51 +16,34 @@
       </ul>
 
       <div class="text-end">
-        <a href="/account/login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+        <a href="/account/logout"><button type="button" class="btn btn-warning">Logout</button></a>
       </div>
     </div>
     </div>
   </header>
 
-    <div class="card my-5 mx-auto align-items-center" style="width: 50%;">
-      <div class="card-body">
-      <form action="{% url 'signup' %}" method="post">
-        {% csrf_token %}
-        <div class="form-outline mb-4">
-          <h2 class="text-center">Sign up</h2>
-        </div>
-        <!-- Username input -->
-        {% for field in form %}
-        <div class="form-outline mb-2">
-          <label class="form-label mb-0 mt-4" for="form2Example1">{{ field.label_tag }}</label>
-          {{ field }}
-        </div>
-        {% if field.errors %}
-          <div class="my-1 py-1 alert alert-danger" role="alert">
-          {% for error in field.errors %}
-              <small>{{ error }}</small>
-          {% endfor %}
-          </div>
-        {% endif %}
-
-        {% if field.help_text %}
-          <div class="m-1 p-1 alert  alert-light" role="alert">
-            <small>{{ field.help_text }}</small>
-          </div>
-        {% endif %}
+  <div class="card my-5 mx-5 justify-content-md-start">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        {% for field in fields %}
+        <th scope="col">{{field}}</th>
         {% endfor %}
-          
-        <!-- Group name input -->
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form2Example2">Group name</label>
-          <input type="text" id="form2Example2" class="form-control" name="group_name">
-        </div>
-        
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-warning btn-block mb-4">Sing Up</button>
-      </form>
-      </div>
-    </div>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ row.start_time }}</td>
+          <td>&emsp;{{ row.num_hours }}</td>
+          <td>&emsp;{{ row.num_people }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
 
   <div class="container">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
