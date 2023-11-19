@@ -22,67 +22,99 @@
     </div>
   </header>
 
-  <div class="card my-5 ml-5 align-items-center justify-content-md-start position-absolute" style="width: 50%;">
+  <div class="card-header mx-5 mt-5 text-center text-white rounded-top bg-dark bg-gradient">
+    <h2>Shift schedule</h2>
+  </div>
+  <div class="card mx-5 text-center" style="overflow-x: scroll;">
   <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">#</th>
-        {% for field in fields %}
+        {% for field in times %}
         <th scope="col">{{field}}</th>
         {% endfor %}
       </tr>
     </thead>
     <tbody>
-      {% for user in members %}
       <tr>
-        <th scope="row">{{ forloop.counter }}</th>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.first_name }} {{ user.last_name }}</td>
+        <th scope="row">Mon</th>
+        {% for time in table.Mon %}
+        {% if time %}
+        <td class="bg-warning">
+        {% else %}
+        <td>
+        {% endif %}
+        {{ time }}</td>
+        {% endfor %}
       </tr>
-      {% endfor %}
+      <tr>
+        <th scope="row">Tue</th>
+        {% for time in table.Tue %}
+        {% if time %}
+        <td class="bg-warning">
+        {% else %}
+        <td>
+        {% endif %}
+        {{ time }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">Wed</th>
+        {% for time in table.Wed %}
+        {% if time %}
+        <td class="bg-warning">
+        {% else %}
+        <td>
+        {% endif %}
+        {{ time }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">Thu</th>
+        {% for time in table.Thu %}
+        {% if time %}
+        <td class="bg-warning">
+        {% else %}
+        <td>
+        {% endif %}
+        {{ time }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">Fri</th>
+        {% for time in table.Fri %}
+        {% if time %}
+        <td class="bg-warning">
+        {% else %}
+        <td>
+        {% endif %}
+        {{ time }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">Sat</th>
+        {% for time in table.Sat %}
+        {% if time %}
+        <td class="bg-warning">
+        {% else %}
+        <td>
+        {% endif %}
+        {{ time }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">Sun</th>
+        {% for time in table.Sun %}
+        {% if time %}
+        <td class="bg-warning">
+        {% else %}
+        <td>
+        {% endif %}
+        {{ time }}</td>
+        {% endfor %}
+      </tr>
     </tbody>
   </table>
-  </div>
-
-
-  <div class="card my-5 ml-auto mr-5 align-items-center justify-content-md-end" style="width: 40%;">
-    <div class="card-body">
-    <form action="{% url 'create' %}" method="post">
-      {% csrf_token %}
-      <div class="form-outline mb-4">
-        <h2 class="text-center">ADD USERS</h2>
-      </div>
-      {% for message in messages %}
-        <div class="my-1 py-1 alert alert-success" role="alert">
-            <small>{{ message }}</small>
-        </div>
-      {% endfor %}
-      <!-- Username input -->
-      {% for field in form %}
-      <div class="form-outline mb-2">
-        <label class="form-label mb-0 mt-4" for="form2Example1">{{ field.label_tag }}</label>
-        {{ field }}
-      </div>
-      {% if field.errors %}
-        <div class="my-1 py-1 alert alert-danger" role="alert">
-        {% for error in field.errors %}
-            <small>{{ error }}</small>
-        {% endfor %}
-        </div>
-      {% endif %}
-
-      {% if field.help_text %}
-        <div class="m-1 p-1 alert  alert-light" role="alert">
-          <small>{{ field.help_text }}</small>
-        </div>
-      {% endif %}
-      {% endfor %}
-      
-      <!-- Submit button -->
-      <button type="submit" class="btn btn-warning btn-block mb-4">Add</button>
-    </form>
-    </div>
   </div>
 
   <div class="container">
