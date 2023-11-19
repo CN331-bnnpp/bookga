@@ -26,10 +26,10 @@ def add_shift(request):
 
 
 def shifts_view(request):
-    user_group = group_member.objects.filter(username=request.user).first()
+    user_group = group_member.objects.filter(username=request.username)
 
     if user_group:
-        shifts = Shift.objects.filter(group_name=user_group.group_name)
+        shifts = Shift.objects.filter(group_name=user_group)
 
         return render(request, 'shift/shifts.html', {'shifts': shifts})
     else:

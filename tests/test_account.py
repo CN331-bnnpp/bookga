@@ -4,9 +4,9 @@
 from django.test import TestCase
 from django.urls import reverse
 from account.models import AccountUser, group, group_member
+from account.views import login_app
 
 class AccountUserTest(TestCase):
-
     def test_create_user(self):
         self.user = AccountUser.objects.create_user(
             username="testuser",
@@ -207,8 +207,6 @@ class AccountViewsTest(TestCase):
             self.assertTemplateUsed(response, "account/create_member.html")
             self.assertEqual(group_member.objects.count(), 2)
             self.client.logout()
-            
-        
-        
+
         
     
