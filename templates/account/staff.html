@@ -1,12 +1,15 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-  <body class="body">
+  <body class="p-5">
     <h1>Staff PAGE</h1>
-    Hi {{user.username}}<br>
-    <a href="/account/create" >add Member</a><br>
+    Hi, {{user.username}}<br> <br>
+    <a href="/account/create" >add users</a><br>
     <a href="/shift/add" >request shift</a><br>
-    <a href="/shift/schedule" >view shift</a><br>
-    <a href="/account/logout" >logout</a>
+    <a href="/shift/schedule" >view shift</a><br><br>
+    <!-- <a href="/account/logout" >logout</a> -->
+    <div class="text-end">
+      <a href="/account/logout"><button type="button" class="btn btn-warning">Log out</button></a>
+    </div>
   </body>
 {% endblock %}
