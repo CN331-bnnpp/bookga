@@ -10,15 +10,16 @@ from .models import AccountUser, group, group_member
 def login_app(request):
     if request.user.is_authenticated:
         user = request.user
-        return render_login(request, user)
+        return render_login(request)
     
     elif request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password1"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return render_login(request, user)
+            login(request,user)
+            request.user = user
+            return render_login(request)
         else:
             messages.error(request, "Invalid username and/or password.")
             return render(request, "account/login.html")
@@ -30,18 +31,13 @@ def logout_app(request):
     return redirect("home")
 
 
-def render_login(request, user):
-    context = {
-       user: user,
-      # add
-    }
-    if user.is_superuser:
-        return render(request, "account/admin.html", context)
-    
-    if user.is_staff:
-        return render(request, "account/staff.html", context)
-    
-    return render(request, "account/user.html", context)
+def render_login(request):
+    user = request.user
+    if user.is_superuser or user.is_staff:
+        return redirect('/staff')
+
+    return redirect('/user')
+
 
 @csrf_exempt
 def signup(request):
@@ -59,7 +55,8 @@ def signup(request):
             create = group.objects.create(username=user, group_name=group_name)
             create.save()
             messages.success(request, "Account created successfully.")
-            return render_login(request, user)
+            request.user = user
+            return render_login(request)
         else:
             messages.error(request, "Invalid form.")
             return render(request, "account/signup.html", {"form": signupForm})
@@ -106,4 +103,24 @@ def create_member(request):
         "fields": fields,
         "members": members,
     }
-    return render(request, "account/create_member.html", context) 
+    return render(request, "account/create_member.html", context)  
+
+from django.shortcuts import render, redirect
+
+def staff_view(request):
+    user = request.user
+    context = {'user': user} 
+
+    if user.is_authenticated and (user.is_superuser or user.is_staff):
+        return render(request, "account/staff.html", context)
+    
+    return redirect('/user')  
+
+def user_view(request):
+    user = request.user
+    context = {'user': user}  
+
+    if user.is_authenticated:
+        return render(request, "account/user.html", context)
+    
+    return redirect('/login')  
