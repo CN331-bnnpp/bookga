@@ -1,13 +1,13 @@
-{% extends 'index.html' %}
+{% extends 'layout1.html' %}
 {% load static %}
 {% block content %}
-  <body class="p-5">
+  <body class="">
     <h1>User PAGE</h1>
     Hi, {{user.username}}<br> <br>
     <a href="/shift/book" >lookup shifts</a><br><br>
-    <!-- <a href="/account/logout" >logout</a> -->
+    <!-- <a href="/logout" >logout</a> -->
     <div class="text-end">
-      <a href="/account/logout"><button type="button" class="btn btn-warning">Log out</button></a>
+      <a href="/logout"><button type="button" class="btn btn-warning">Log out</button></a>
     </div>
   </body>
 {% endblock %}
