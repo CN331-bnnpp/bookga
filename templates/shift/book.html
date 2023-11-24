@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
+{% load filter %}
 {% block content %}
 <body style="overflow-y: scroll;">
   <header class="p-3 bg-dark text-white">
@@ -23,7 +24,12 @@
   </header>
 
   <div class="card my-5 mx-5 justify-content-md-start">
-  <table class="table table-hover">
+    <table class="table table-hover">
+    {% for message in messages %}
+    <div class="my-1 py-1 alert alert-danger" role="alert">
+        <small>{{ message }}</small>
+    </div>
+    {% endfor %}
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -38,7 +44,14 @@
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{ row.start_time }}</td>
         <td id="{{ forloop.counter }}"></td>
-        <td>&emsp;xx/{{ row.num_people }}</td>
+        <td>&emsp;&emsp;{{ count|key:row.pk }}/{{ row.num_people }}</td>
+        <td>
+          <form action=""{% url 'book' %}"" method="post">
+          {% csrf_token %}
+          <div>
+            <button type="submit" name="id" value={{row.pk}} class="btn btn-warning">Book</button>
+          </div>
+        </td>
       </tr>
       {% endfor %}
       <script>

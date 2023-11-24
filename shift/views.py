@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.contrib import messages
 from .forms import ShiftForm 
-from .models import Shift
+from .models import Shift, ShiftUser
 from account.models import group, group_member
 
 # Create your views here.
@@ -31,9 +32,17 @@ def lookup_shift(request):
     else:
         gn = group_member.objects.get(username=request.user).group_name
         table = Shift.objects.filter(group_name=gn)
+    if request.method == "POST":
+        return book_shift(request)
+    
+    count = {}
+    for id in table.values_list('Shift_id', flat=True):
+        count[id] = ShiftUser.objects.filter(shift_id=id).count()
+
     context = {
         'table': table,
         'fields': ['Start Time', 'End Time', 'Number of People', 'Book'],
+        'count': count,
     }
     return render(request, "shift/book.html", context)
 
@@ -76,7 +85,7 @@ def generate_schedule(table):
         day = start_time.strftime('%a')
 
         # Find the index of the activity
-        index = start_time.hour + 7
+        index = (start_time.hour + 7)%24
 
         # Fill in the activity
         schedule[day][index] = True
@@ -86,3 +95,18 @@ def generate_schedule(table):
             schedule[day][index + i] = True
 
     return schedule
+
+def book_shift(request):
+    if request.method == "POST":
+        id = request.POST.get('id')
+        shift = Shift.objects.get(pk=id)
+        book = ShiftUser(shift_id=shift, user_id=request.user)
+        if (shift.num_people > len(ShiftUser.objects.filter(shift_id=shift)) and
+            not ShiftUser.objects.filter(shift_id=shift).filter(user_id=request.user).exists()):
+            book.save()
+        elif ShiftUser.objects.filter(shift_id=shift).filter(user_id=request.user).exists():
+            messages.error(request, "You have already booked this shift")
+        else:
+            messages.error(request, "Shift is full")
+    request.method = "GET"
+    return lookup_shift(request)
