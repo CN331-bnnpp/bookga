@@ -11,7 +11,7 @@ def add_shift(request):
     context = {
         'form': form,
         'table': table,
-        'fields': ['start_time', 'num_hours', 'num_people'],
+        'fields': ['Start Time', 'End Time', 'Number of People'],
     }
     
     if request.method == "POST":
