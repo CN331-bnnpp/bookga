@@ -33,7 +33,7 @@ def lookup_shift(request):
         table = Shift.objects.filter(group_name=gn)
     context = {
         'table': table,
-        'fields': ['start_time', 'num_hours', 'num_people'],
+        'fields': ['Start Time', 'End Time', 'Number of People', 'Book'],
     }
     return render(request, "shift/book.html", context)
 

@@ -34,13 +34,24 @@
     </thead>
     <tbody>
       {% for row in table %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ row.start_time }}</td>
-          <td>&emsp;{{ row.num_hours }}</td>
-          <td>&emsp;{{ row.num_people }}</td>
-        </tr>
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ row.start_time }}</td>
+        <td id="{{ forloop.counter }}"></td>
+        <td>&emsp;xx/{{ row.num_people }}</td>
+      </tr>
       {% endfor %}
+      <script>
+      {% for row in table %}
+        var end = "{{ row.start_time.year }}-{{ row.start_time.month }}-{{ row.start_time.day }} {{ row.start_time.hour }}:{{ row.start_time.minute }}:00 {{ row.start_time.tzinfo }}";
+        var date = new Date(end);
+        date.setHours(date.getHours() + parseInt("{{ row.num_hours }}"));
+        // text format Nov. 22, 2023, 9 a.m.
+        var text = date.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', hour12: true })
+        text = text.replace("AM", "a.m.").replace("PM", "p.m.");
+        document.getElementById("{{ forloop.counter }}").innerHTML = text;
+      {% endfor %}
+      </script>
     </tbody>
   </table>
   </div>
