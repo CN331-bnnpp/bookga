@@ -102,47 +102,6 @@ class TestAddShiftView(TestCase):
 
         self.assertFalse(Shift.objects.exists())
 
-# class TestLookupShiftView(TestCase):
-#     def setUp(self):
-#         self.factory = RequestFactory()
-#         self.sample_user = AccountUser.objects.create(username='test_user', password="testuser", is_staff=True)
-#         self.sample_user2 = AccountUser.objects.create(username='test_user2', password="testuser2", is_staff=False)
-#         self.sample_group = group.objects.create(username=self.sample_user, group_name="TestGroup")
-#         self.start_time_utc = datetime(2023, 11, 18, 8, 0, tzinfo=timezone.utc)
-#         self.shift = Shift.objects.create(
-#             group_name=self.sample_group,
-#             start_time=self.start_time_utc,
-#             num_hours=4,
-#             num_people=2
-#         )
-#         self.group_member = group_member.objects.create(username=self.sample_user2, group_name=self.sample_group)
-#         self.shift_user = ShiftUser.objects.create(shift_id=self.shift, user_id=self.sample_user)
-
-#     def test_lookup_shift_view_with_valid_data(self):
-#         data = {
-#             'start_time': self.start_time_utc,
-#             'num_hours': 4,
-#             'num_people': 2
-#         }
-
-#         request = self.factory.post('/book/', data)
-#         request.user = self.sample_user
-#         response = shift_schedule(request)
-#         response2 = lookup_shift(request)
-
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(response2.status_code, 200)
-#         self.assertTrue(Shift.objects.exists())
-
-
-#         request.user = self.sample_user2
-#         response = shift_schedule(request)
-#         response2 = lookup_shift(request)
-
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(response2.status_code, 200)
-#         self.assertTrue(Shift.objects.exists())
-
 class LookupShiftViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
@@ -177,7 +136,16 @@ class LookupShiftViewTest(TestCase):
         rendered_content = response.content.decode('utf-8')
         self.assertIn('container', rendered_content)
 
-    # def test_lookup_shift_post_request(self):
+    def test_lookup_shift_post_request(self):
+        data = {
+            'start_time': self.start_time_utc,
+            'num_hours': 4,
+            'num_people': 2
+        }
+        request = self.factory.post('/lookup_shift/', data)
+        request.user = self.sample_user
+        
+        response = lookup_shift(request)
         
 class ShiftScheduleViewsTest(TestCase):
     def setUp(self):
