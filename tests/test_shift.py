@@ -177,21 +177,8 @@ class LookupShiftViewTest(TestCase):
         rendered_content = response.content.decode('utf-8')
         self.assertIn('container', rendered_content)
 
-    # def test_lookup_shift_view_with_valid_data(self):
-    #     data = {
-    #         'start_time': self.start_time_utc,
-    #         'num_hours': 4,
-    #         'num_people': 2
-    #     }
-
-    #     request = self.factory.post('/book/', data)
-    #     request.user = self.shift_user
-    #     response = lookup_shift(request)
-
-    #     self.assertEqual(response.status_code, 200)
-    #     rendered_content = response.content.decode('utf-8')
-    #     self.assertIn('container', rendered_content)
-    
+    # def test_lookup_shift_post_request(self):
+        
 class ShiftScheduleViewsTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
@@ -240,7 +227,7 @@ class BookShiftViewsTest(TestCase):
 
         messages_to_assert = []
 
-        # in this scenario is not error
+        # in this scenario is not error. So mock_messages_error isn't work
         # def mock_messages_error(request, message):
         #     messages_to_assert.append(message)
         # messages.error = mock_messages_error
