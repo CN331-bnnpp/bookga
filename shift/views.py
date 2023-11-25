@@ -51,20 +51,24 @@ def shift_schedule(request):
     if request.user.is_staff:
         gn = group.objects.get(username=request.user).group_name
         table = Shift.objects.filter(group_name=gn)
+        book = ShiftUser.objects.filter(shift_id__in=table)
+        
     else:
         gn = group_member.objects.get(username=request.user).group_name
         table = Shift.objects.filter(group_name=gn)
+        book = ShiftUser.objects.filter(shift_id__in=table)
 
     context = {
-        'table': generate_schedule(table),
+        'table': generate_schedule(table, book),
         'times': ['12:00am', '1:00am', '2:00am', '3:00am', '4:00am', '5:00am',
                   '6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am',
                   '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm',
                   '6:00pm', '7:00pm', '8:00pm', '9:00pm', '10:00pm', '11:00pm'],
+        'user': request.user,
     }
     return render(request, "shift/schedule.html", context)
 
-def generate_schedule(table):
+def generate_schedule(table, book):
     # Define the days of the week
     days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -88,11 +92,11 @@ def generate_schedule(table):
         index = (start_time.hour + 7)%24
 
         # Fill in the activity
-        schedule[day][index] = True
+        schedule[day][index] = book.filter(shift_id=activity)
 
         # Fill in the activity for the next num_hours
         for i in range(1, num_hours):
-            schedule[day][index + i] = True
+            schedule[day][index + i] = book.filter(shift_id=activity)
 
     return schedule
 

@@ -19,7 +19,18 @@
       </ul>
 
       <div class="text-end">
-        <a href="/account/logout"><button type="button" class="btn btn-warning">Log out</button></a>
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            MENU
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/account/login">My account</a></li>
+            <li><a class="dropdown-item" href="/account/create">Add Member</a></li>
+            <li><a class="dropdown-item disabled" href="#">Add Shift</a></li>
+            <li><a class="dropdown-item" href="/shift/schedule">Schedule</a></li>
+          </ul>
+          <a href="/account/logout"><button type="button" class="btn btn-warning">Log out</button></a>
+        </div>
       </div>
     </div>
     </div>
