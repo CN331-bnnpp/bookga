@@ -34,7 +34,7 @@ shift\tests.py                           0      0   100%
 shift\urls.py                            3      0   100%
 shift\views.py                          67      0   100%
 tests\test_about.py                     24      0   100%
-tests\test_account.py                  116      0   100%
-tests\test_shift.py                    147      0   100%
+tests\test_account.py                  137      0   100%
+tests\test_shift.py                    149      0   100%
 --------------------------------------------------------
-TOTAL                                  608      3    99%
+TOTAL                                  631      3    99%
