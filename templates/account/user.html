@@ -36,9 +36,37 @@
     </div>
   </header>
 
-    <h1>User PAGE</h1>
-    Hi, {{user.username}}<br> <br>
-    <a href="/shift/book" >lookup shifts</a><br><br>
+  <div class="container row m-5">
+    <div class="col-sm">
+      <h1>My account</h1>
+      <i class="fa-solid fa-user-circle m-3 text-muted" style="font-size: 180px"></i>
+    </div>
+    <div class="col-sm-9 ">
+      <h1><br></h1>
+      <div class="card bg-light">
+        <div class="card-header bg-warning">
+          <h2 class="card-title my-auto">Profile</h1>
+        </div>
+        <div class="card-body m-2">
+          <h2 class="m-0">
+            <i class="fa-solid fa-id-card-alt text-primary"></i>
+            Username
+          </h2>
+          <h3 class="text-secondary m-0">#&emsp;{{ user.username }}</h3>
+          <h2 class="pt-3 m-0">
+            <i class="fa-solid fa-envelope text-warning"></i>
+            Email
+          </h2>
+          <h3 class="text-secondary m-0">#&emsp;{{ user.email }}</h3>
+          <h2 class="pt-3 m-0">
+            <i class="fa-solid fa-user-tag text-danger"></i>
+            Tag
+          </h2>
+          <h3 class="text-secondary m-0">#&emsp;Member</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
