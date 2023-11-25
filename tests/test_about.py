@@ -14,12 +14,6 @@ class TestUrls(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/home.html')  
 
-    # def test_home_en_url(self):
-    #     url = reverse('home') + '/en'
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'home/home.html')  
-
 class TestViews(TestCase):
     def test_about_view(self):
         url = reverse('about')
