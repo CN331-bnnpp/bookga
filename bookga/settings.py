@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'account.apps.AccountConfig',
     'shift.apps.ShiftConfig',
+    'report.apps.ReportConfig',
     'fontawesomefree',
 ]
 
@@ -148,9 +149,9 @@ APP_SHORTNAME = 'bookga'
 APP_URL = 'http://bookga.com'
 EMAIL_FROM = 'noreply@bookga.com'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'bookga_cache_table',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'bookga_cache_table',
+#     }
+# }
