@@ -70,7 +70,7 @@ class CountMonthViewsTest(TestCase):
         # test countMonth funtion in report/views.py
         data = {
             'month': ['Jan', 'Feb', 'Mar', 'Mar', 'Apr', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            'id': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  # Sample data for 'id', assuming it's a column in the DataFrame
+            'id': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         }
 
         df = pd.DataFrame(data)
