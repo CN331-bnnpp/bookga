@@ -1,9 +1,13 @@
 {% extends 'index.html' %}
 {% load static %}
+{% load filter %}
 {% block content %}
 <body style="overflow-y: scroll;">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
   <header class="p-3 bg-dark text-white">
-    <div class="container">
+    <div class="vw-100 mx-0">
     <div class="d-flex flex-wrap align-items-center justify-content-start justify-content-lg-between">
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
         <i class="fa-solid fa-calendar-xmark" style="font-size: xx-large;"></i>
@@ -16,7 +20,22 @@
       </ul>
 
       <div class="text-end">
-        <a href="/account/logout"><button type="button" class="btn btn-warning">Log out</button></a>
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            MENU
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/account/login">My account</a></li>
+            {% if user.is_staff %}
+            <li><a class="dropdown-item" href="/account/create">Add Member</a></li>
+            <li><a class="dropdown-item" href="/shift/add">Add Shift</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="/shift/book">Book</a></li>
+            {% endif %}
+            <li><a class="dropdown-item disabled" href="#">Schedule</a></li>
+          </ul>
+          <a href="/account/logout"><button type="button" class="btn btn-warning">Log out</button></a>
+        </div>
       </div>
     </div>
     </div>
@@ -40,77 +59,287 @@
         <th scope="row">Mon</th>
         {% for time in table.Mon %}
         {% if time %}
-        <td class="bg-warning">
+        {% if time|is_user:user %}
+        <td class="bg-success" >
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% else %}
+        <td class="bg-warning" >
+          <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% endif %} 
+              <span id="random-mon-{{forloop.counter}}"></span>
+
+    <script>
+        function getRandomIcon() {
+            // Array of Font Awesome icon classes
+            const icons = ['fa-address-book', 'fa-adjust', 'fa-ambulance', 'fa-anchor', 'fa-archive', 'fa-asterisk', 'fa-at', 'fa-atom', 'fa-award', 'fa-balance-scale', 'fa-ban', 'fa-battery-full', 'fa-beer', 'fa-bell', 'fa-bicycle', 'fa-binoculars', 'fa-birthday-cake', 'fa-bolt', 'fa-bomb', 'fa-book', 'fa-briefcase', 'fa-bug', 'fa-building', 'fa-bullhorn', 'fa-bus', 'fa-camera', 'fa-car', 'fa-cart-arrow-down', 'fa-check', 'fa-child', 'fa-circle', 'fa-cloud', 'fa-coffee', 'fa-cog', 'fa-compass', 'fa-cube', 'fa-cut', 'fa-desktop', 'fa-database', 'fa-diamond', 'fa-envelope', 'fa-exclamation-triangle', 'fa-eye', 'fa-fighter-jet', 'fa-film', 'fa-fire', 'fa-flag', 'fa-flask', 'fa-gamepad', 'fa-gavel', 'fa-gift', 'fa-globe', 'fa-graduation-cap', 'fa-hamburger', 'fa-heart', 'fa-home', 'fa-image', 'fa-key', 'fa-laptop', 'fa-lemon', 'fa-life-ring', 'fa-lightbulb', 'fa-lock', 'fa-magic', 'fa-map', 'fa-medkit', 'fa-microphone', 'fa-moon', 'fa-music', 'fa-paper-plane', 'fa-paw', 'fa-phone', 'fa-rocket', 'fa-search', 'fa-shield', 'fa-star', 'fa-sun', 'fa-tablet', 'fa-tag', 'fa-thumb-tack', 'fa-train', 'fa-tree', 'fa-umbrella', 'fa-user', 'fa-video-camera', 'fa-volume-up', 'fa-wifi', 'fa-carrot', 'fa-chess-queen', 'fa-cookie-bite', 'fa-dice-six', 'fa-feather', 'fa-guitar', 'fa-hat-wizard', 'fa-laptop-code', 'fa-pen-alt', 'fa-vr-cardboard'];
+            const randomIndex = Math.floor(Math.random() * icons.length);
+            const randomIcon = icons[randomIndex];
+            document.getElementById('random-mon-{{forloop.counter}}').innerHTML = `<i class="fa-solid ${randomIcon} style="font-size: xx-large;""></i>`;
+        }
+
+        // Call the function to display a random icon on page load
+        getRandomIcon();
+    </script>
+ 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for name in time|getvalue %}
+              <li><a class="dropdown-item">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         {% else %}
         <td>
         {% endif %}
-        {{ time }}</td>
+        </td>
         {% endfor %}
       </tr>
       <tr>
         <th scope="row">Tue</th>
         {% for time in table.Tue %}
         {% if time %}
-        <td class="bg-warning">
+        {% if time|is_user:user %}
+        <td class="bg-success" >
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% else %}
+        <td class="bg-warning" >
+          <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% endif %} 
+              <span id="random-tue-{{forloop.counter}}"></span>
+
+    <script>
+        function getRandomIcon() {
+            // Array of Font Awesome icon classes
+            const icons = ['fa-address-book', 'fa-adjust', 'fa-ambulance', 'fa-anchor', 'fa-archive', 'fa-asterisk', 'fa-at', 'fa-atom', 'fa-award', 'fa-balance-scale', 'fa-ban', 'fa-battery-full', 'fa-beer', 'fa-bell', 'fa-bicycle', 'fa-binoculars', 'fa-birthday-cake', 'fa-bolt', 'fa-bomb', 'fa-book', 'fa-briefcase', 'fa-bug', 'fa-building', 'fa-bullhorn', 'fa-bus', 'fa-camera', 'fa-car', 'fa-cart-arrow-down', 'fa-check', 'fa-child', 'fa-circle', 'fa-cloud', 'fa-coffee', 'fa-cog', 'fa-compass', 'fa-cube', 'fa-cut', 'fa-desktop', 'fa-database', 'fa-diamond', 'fa-envelope', 'fa-exclamation-triangle', 'fa-eye', 'fa-fighter-jet', 'fa-film', 'fa-fire', 'fa-flag', 'fa-flask', 'fa-gamepad', 'fa-gavel', 'fa-gift', 'fa-globe', 'fa-graduation-cap', 'fa-hamburger', 'fa-heart', 'fa-home', 'fa-image', 'fa-key', 'fa-laptop', 'fa-lemon', 'fa-life-ring', 'fa-lightbulb', 'fa-lock', 'fa-magic', 'fa-map', 'fa-medkit', 'fa-microphone', 'fa-moon', 'fa-music', 'fa-paper-plane', 'fa-paw', 'fa-phone', 'fa-rocket', 'fa-search', 'fa-shield', 'fa-star', 'fa-sun', 'fa-tablet', 'fa-tag', 'fa-thumb-tack', 'fa-train', 'fa-tree', 'fa-umbrella', 'fa-user', 'fa-video-camera', 'fa-volume-up', 'fa-wifi', 'fa-carrot', 'fa-chess-queen', 'fa-cookie-bite', 'fa-dice-six', 'fa-feather', 'fa-guitar', 'fa-hat-wizard', 'fa-laptop-code', 'fa-pen-alt', 'fa-vr-cardboard'];
+            const randomIndex = Math.floor(Math.random() * icons.length);
+            const randomIcon = icons[randomIndex];
+            document.getElementById('random-tue-{{forloop.counter}}').innerHTML = `<i class="fa-solid ${randomIcon} style="font-size: xx-large;""></i>`;
+        }
+
+        // Call the function to display a random icon on page load
+        getRandomIcon();
+    </script>
+ 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for name in time|getvalue %}
+              <li><a class="dropdown-item">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         {% else %}
         <td>
         {% endif %}
-        {{ time }}</td>
+        </td>
         {% endfor %}
       </tr>
       <tr>
         <th scope="row">Wed</th>
         {% for time in table.Wed %}
         {% if time %}
-        <td class="bg-warning">
+        {% if time|is_user:user %}
+        <td class="bg-success" >
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% else %}
+        <td class="bg-warning" >
+          <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% endif %} 
+              <span id="random-wed-{{forloop.counter}}"></span>
+
+    <script>
+        function getRandomIcon() {
+            // Array of Font Awesome icon classes
+            const icons = ['fa-address-book', 'fa-adjust', 'fa-ambulance', 'fa-anchor', 'fa-archive', 'fa-asterisk', 'fa-at', 'fa-atom', 'fa-award', 'fa-balance-scale', 'fa-ban', 'fa-battery-full', 'fa-beer', 'fa-bell', 'fa-bicycle', 'fa-binoculars', 'fa-birthday-cake', 'fa-bolt', 'fa-bomb', 'fa-book', 'fa-briefcase', 'fa-bug', 'fa-building', 'fa-bullhorn', 'fa-bus', 'fa-camera', 'fa-car', 'fa-cart-arrow-down', 'fa-check', 'fa-child', 'fa-circle', 'fa-cloud', 'fa-coffee', 'fa-cog', 'fa-compass', 'fa-cube', 'fa-cut', 'fa-desktop', 'fa-database', 'fa-diamond', 'fa-envelope', 'fa-exclamation-triangle', 'fa-eye', 'fa-fighter-jet', 'fa-film', 'fa-fire', 'fa-flag', 'fa-flask', 'fa-gamepad', 'fa-gavel', 'fa-gift', 'fa-globe', 'fa-graduation-cap', 'fa-hamburger', 'fa-heart', 'fa-home', 'fa-image', 'fa-key', 'fa-laptop', 'fa-lemon', 'fa-life-ring', 'fa-lightbulb', 'fa-lock', 'fa-magic', 'fa-map', 'fa-medkit', 'fa-microphone', 'fa-moon', 'fa-music', 'fa-paper-plane', 'fa-paw', 'fa-phone', 'fa-rocket', 'fa-search', 'fa-shield', 'fa-star', 'fa-sun', 'fa-tablet', 'fa-tag', 'fa-thumb-tack', 'fa-train', 'fa-tree', 'fa-umbrella', 'fa-user', 'fa-video-camera', 'fa-volume-up', 'fa-wifi', 'fa-carrot', 'fa-chess-queen', 'fa-cookie-bite', 'fa-dice-six', 'fa-feather', 'fa-guitar', 'fa-hat-wizard', 'fa-laptop-code', 'fa-pen-alt', 'fa-vr-cardboard'];
+            const randomIndex = Math.floor(Math.random() * icons.length);
+            const randomIcon = icons[randomIndex];
+            document.getElementById('random-wed-{{forloop.counter}}').innerHTML = `<i class="fa-solid ${randomIcon} style="font-size: xx-large;""></i>`;
+        }
+
+        // Call the function to display a random icon on page load
+        getRandomIcon();
+    </script>
+ 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for name in time|getvalue %}
+              <li><a class="dropdown-item">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         {% else %}
         <td>
         {% endif %}
-        {{ time }}</td>
+        </td>
         {% endfor %}
       </tr>
       <tr>
         <th scope="row">Thu</th>
         {% for time in table.Thu %}
         {% if time %}
-        <td class="bg-warning">
+        {% if time|is_user:user %}
+        <td class="bg-success" >
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% else %}
+        <td class="bg-warning" >
+          <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% endif %} 
+              <span id="random-thu-{{forloop.counter}}"></span>
+
+    <script>
+        function getRandomIcon() {
+            // Array of Font Awesome icon classes
+            const icons = ['fa-address-book', 'fa-adjust', 'fa-ambulance', 'fa-anchor', 'fa-archive', 'fa-asterisk', 'fa-at', 'fa-atom', 'fa-award', 'fa-balance-scale', 'fa-ban', 'fa-battery-full', 'fa-beer', 'fa-bell', 'fa-bicycle', 'fa-binoculars', 'fa-birthday-cake', 'fa-bolt', 'fa-bomb', 'fa-book', 'fa-briefcase', 'fa-bug', 'fa-building', 'fa-bullhorn', 'fa-bus', 'fa-camera', 'fa-car', 'fa-cart-arrow-down', 'fa-check', 'fa-child', 'fa-circle', 'fa-cloud', 'fa-coffee', 'fa-cog', 'fa-compass', 'fa-cube', 'fa-cut', 'fa-desktop', 'fa-database', 'fa-diamond', 'fa-envelope', 'fa-exclamation-triangle', 'fa-eye', 'fa-fighter-jet', 'fa-film', 'fa-fire', 'fa-flag', 'fa-flask', 'fa-gamepad', 'fa-gavel', 'fa-gift', 'fa-globe', 'fa-graduation-cap', 'fa-hamburger', 'fa-heart', 'fa-home', 'fa-image', 'fa-key', 'fa-laptop', 'fa-lemon', 'fa-life-ring', 'fa-lightbulb', 'fa-lock', 'fa-magic', 'fa-map', 'fa-medkit', 'fa-microphone', 'fa-moon', 'fa-music', 'fa-paper-plane', 'fa-paw', 'fa-phone', 'fa-rocket', 'fa-search', 'fa-shield', 'fa-star', 'fa-sun', 'fa-tablet', 'fa-tag', 'fa-thumb-tack', 'fa-train', 'fa-tree', 'fa-umbrella', 'fa-user', 'fa-video-camera', 'fa-volume-up', 'fa-wifi', 'fa-carrot', 'fa-chess-queen', 'fa-cookie-bite', 'fa-dice-six', 'fa-feather', 'fa-guitar', 'fa-hat-wizard', 'fa-laptop-code', 'fa-pen-alt', 'fa-vr-cardboard'];
+            const randomIndex = Math.floor(Math.random() * icons.length);
+            const randomIcon = icons[randomIndex];
+            document.getElementById('random-thu-{{forloop.counter}}').innerHTML = `<i class="fa-solid ${randomIcon} style="font-size: xx-large;""></i>`;
+        }
+
+        // Call the function to display a random icon on page load
+        getRandomIcon();
+    </script>
+ 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for name in time|getvalue %}
+              <li><a class="dropdown-item">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         {% else %}
         <td>
         {% endif %}
-        {{ time }}</td>
+        </td>
         {% endfor %}
       </tr>
       <tr>
         <th scope="row">Fri</th>
         {% for time in table.Fri %}
         {% if time %}
-        <td class="bg-warning">
+        {% if time|is_user:user %}
+        <td class="bg-success" >
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% else %}
+        <td class="bg-warning" >
+          <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% endif %} 
+              <span id="random-fri-{{forloop.counter}}"></span>
+
+    <script>
+        function getRandomIcon() {
+            // Array of Font Awesome icon classes
+            const icons = ['fa-address-book', 'fa-adjust', 'fa-ambulance', 'fa-anchor', 'fa-archive', 'fa-asterisk', 'fa-at', 'fa-atom', 'fa-award', 'fa-balance-scale', 'fa-ban', 'fa-battery-full', 'fa-beer', 'fa-bell', 'fa-bicycle', 'fa-binoculars', 'fa-birthday-cake', 'fa-bolt', 'fa-bomb', 'fa-book', 'fa-briefcase', 'fa-bug', 'fa-building', 'fa-bullhorn', 'fa-bus', 'fa-camera', 'fa-car', 'fa-cart-arrow-down', 'fa-check', 'fa-child', 'fa-circle', 'fa-cloud', 'fa-coffee', 'fa-cog', 'fa-compass', 'fa-cube', 'fa-cut', 'fa-desktop', 'fa-database', 'fa-diamond', 'fa-envelope', 'fa-exclamation-triangle', 'fa-eye', 'fa-fighter-jet', 'fa-film', 'fa-fire', 'fa-flag', 'fa-flask', 'fa-gamepad', 'fa-gavel', 'fa-gift', 'fa-globe', 'fa-graduation-cap', 'fa-hamburger', 'fa-heart', 'fa-home', 'fa-image', 'fa-key', 'fa-laptop', 'fa-lemon', 'fa-life-ring', 'fa-lightbulb', 'fa-lock', 'fa-magic', 'fa-map', 'fa-medkit', 'fa-microphone', 'fa-moon', 'fa-music', 'fa-paper-plane', 'fa-paw', 'fa-phone', 'fa-rocket', 'fa-search', 'fa-shield', 'fa-star', 'fa-sun', 'fa-tablet', 'fa-tag', 'fa-thumb-tack', 'fa-train', 'fa-tree', 'fa-umbrella', 'fa-user', 'fa-video-camera', 'fa-volume-up', 'fa-wifi', 'fa-carrot', 'fa-chess-queen', 'fa-cookie-bite', 'fa-dice-six', 'fa-feather', 'fa-guitar', 'fa-hat-wizard', 'fa-laptop-code', 'fa-pen-alt', 'fa-vr-cardboard'];
+            const randomIndex = Math.floor(Math.random() * icons.length);
+            const randomIcon = icons[randomIndex];
+            document.getElementById('random-fri-{{forloop.counter}}').innerHTML = `<i class="fa-solid ${randomIcon} style="font-size: xx-large;""></i>`;
+        }
+
+        // Call the function to display a random icon on page load
+        getRandomIcon();
+    </script>
+ 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for name in time|getvalue %}
+              <li><a class="dropdown-item">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         {% else %}
         <td>
         {% endif %}
-        {{ time }}</td>
+        </td>
         {% endfor %}
       </tr>
       <tr>
         <th scope="row">Sat</th>
         {% for time in table.Sat %}
         {% if time %}
-        <td class="bg-warning">
+        {% if time|is_user:user %}
+        <td class="bg-success" >
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% else %}
+        <td class="bg-warning" >
+          <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% endif %}  
+              <span id="random-sat-{{forloop.counter}}"></span>
+
+    <script>
+        function getRandomIcon() {
+            // Array of Font Awesome icon classes
+            const icons = ['fa-address-book', 'fa-adjust', 'fa-ambulance', 'fa-anchor', 'fa-archive', 'fa-asterisk', 'fa-at', 'fa-atom', 'fa-award', 'fa-balance-scale', 'fa-ban', 'fa-battery-full', 'fa-beer', 'fa-bell', 'fa-bicycle', 'fa-binoculars', 'fa-birthday-cake', 'fa-bolt', 'fa-bomb', 'fa-book', 'fa-briefcase', 'fa-bug', 'fa-building', 'fa-bullhorn', 'fa-bus', 'fa-camera', 'fa-car', 'fa-cart-arrow-down', 'fa-check', 'fa-child', 'fa-circle', 'fa-cloud', 'fa-coffee', 'fa-cog', 'fa-compass', 'fa-cube', 'fa-cut', 'fa-desktop', 'fa-database', 'fa-diamond', 'fa-envelope', 'fa-exclamation-triangle', 'fa-eye', 'fa-fighter-jet', 'fa-film', 'fa-fire', 'fa-flag', 'fa-flask', 'fa-gamepad', 'fa-gavel', 'fa-gift', 'fa-globe', 'fa-graduation-cap', 'fa-hamburger', 'fa-heart', 'fa-home', 'fa-image', 'fa-key', 'fa-laptop', 'fa-lemon', 'fa-life-ring', 'fa-lightbulb', 'fa-lock', 'fa-magic', 'fa-map', 'fa-medkit', 'fa-microphone', 'fa-moon', 'fa-music', 'fa-paper-plane', 'fa-paw', 'fa-phone', 'fa-rocket', 'fa-search', 'fa-shield', 'fa-star', 'fa-sun', 'fa-tablet', 'fa-tag', 'fa-thumb-tack', 'fa-train', 'fa-tree', 'fa-umbrella', 'fa-user', 'fa-video-camera', 'fa-volume-up', 'fa-wifi', 'fa-carrot', 'fa-chess-queen', 'fa-cookie-bite', 'fa-dice-six', 'fa-feather', 'fa-guitar', 'fa-hat-wizard', 'fa-laptop-code', 'fa-pen-alt', 'fa-vr-cardboard'];
+            const randomIndex = Math.floor(Math.random() * icons.length);
+            const randomIcon = icons[randomIndex];
+            document.getElementById('random-sat-{{forloop.counter}}').innerHTML = `<i class="fa-solid ${randomIcon} style="font-size: xx-large;""></i>`;
+        }
+
+        // Call the function to display a random icon on page load
+        getRandomIcon();
+    </script>
+ 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for name in time|getvalue %}
+              <li><a class="dropdown-item">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         {% else %}
         <td>
         {% endif %}
-        {{ time }}</td>
+        </td>
         {% endfor %}
       </tr>
       <tr>
         <th scope="row">Sun</th>
         {% for time in table.Sun %}
         {% if time %}
-        <td class="bg-warning">
+        {% if time|is_user:user %}
+        <td class="bg-success" >
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% else %}
+        <td class="bg-warning" >
+          <div class="dropdown">
+            <button class="btn btn-warning" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {% endif %} 
+              <span id="random-sun-{{forloop.counter}}"></span>
+
+    <script>
+        function getRandomIcon() {
+            // Array of Font Awesome icon classes
+            const icons = ['fa-address-book', 'fa-adjust', 'fa-ambulance', 'fa-anchor', 'fa-archive', 'fa-asterisk', 'fa-at', 'fa-atom', 'fa-award', 'fa-balance-scale', 'fa-ban', 'fa-battery-full', 'fa-beer', 'fa-bell', 'fa-bicycle', 'fa-binoculars', 'fa-birthday-cake', 'fa-bolt', 'fa-bomb', 'fa-book', 'fa-briefcase', 'fa-bug', 'fa-building', 'fa-bullhorn', 'fa-bus', 'fa-camera', 'fa-car', 'fa-cart-arrow-down', 'fa-check', 'fa-child', 'fa-circle', 'fa-cloud', 'fa-coffee', 'fa-cog', 'fa-compass', 'fa-cube', 'fa-cut', 'fa-desktop', 'fa-database', 'fa-diamond', 'fa-envelope', 'fa-exclamation-triangle', 'fa-eye', 'fa-fighter-jet', 'fa-film', 'fa-fire', 'fa-flag', 'fa-flask', 'fa-gamepad', 'fa-gavel', 'fa-gift', 'fa-globe', 'fa-graduation-cap', 'fa-hamburger', 'fa-heart', 'fa-home', 'fa-image', 'fa-key', 'fa-laptop', 'fa-lemon', 'fa-life-ring', 'fa-lightbulb', 'fa-lock', 'fa-magic', 'fa-map', 'fa-medkit', 'fa-microphone', 'fa-moon', 'fa-music', 'fa-paper-plane', 'fa-paw', 'fa-phone', 'fa-rocket', 'fa-search', 'fa-shield', 'fa-star', 'fa-sun', 'fa-tablet', 'fa-tag', 'fa-thumb-tack', 'fa-train', 'fa-tree', 'fa-umbrella', 'fa-user', 'fa-video-camera', 'fa-volume-up', 'fa-wifi', 'fa-carrot', 'fa-chess-queen', 'fa-cookie-bite', 'fa-dice-six', 'fa-feather', 'fa-guitar', 'fa-hat-wizard', 'fa-laptop-code', 'fa-pen-alt', 'fa-vr-cardboard'];
+            const randomIndex = Math.floor(Math.random() * icons.length);
+            const randomIcon = icons[randomIndex];
+            document.getElementById('random-sun-{{forloop.counter}}').innerHTML = `<i class="fa-solid ${randomIcon} style="font-size: xx-large;""></i>`;
+        }
+
+        // Call the function to display a random icon on page load
+        getRandomIcon();
+    </script>
+ 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for name in time|getvalue %}
+              <li><a class="dropdown-item">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         {% else %}
         <td>
         {% endif %}
-        {{ time }}</td>
+        </td>
         {% endfor %}
       </tr>
     </tbody>
