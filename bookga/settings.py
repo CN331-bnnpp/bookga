@@ -148,10 +148,3 @@ RESERVATION_SPOTS_TOTAL = 24
 APP_SHORTNAME = 'bookga'
 APP_URL = 'http://bookga.com'
 EMAIL_FROM = 'noreply@bookga.com'
-
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-#         'LOCATION': 'bookga_cache_table',
-#     }
-# }
