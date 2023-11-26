@@ -1,0 +1,150 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<body style="overflow-y: scroll;">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <header class="p-3 bg-dark text-white">
+    <div class="vw-100 mx-0">
+    <div class="d-flex flex-wrap align-items-center justify-content-start justify-content-lg-between">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <i class="fa-solid fa-calendar-xmark" style="font-size: xx-large;"></i>
+        <h2 class="m-0">BOOKGA</h2>
+      </a>
+
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
+        <li><a href="/about" class="nav-link px-2 text-white">About</a></li>
+      </ul>
+
+      <div class="text-end">
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            MENU
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/account/login">My account</a></li>
+            <li><a class="dropdown-item disabled" href="#">Report</a></li>
+            <li><a class="dropdown-item" href="/admin">Admin</a></li>
+          </ul>
+          <a href="/account/logout"><button type="button" class="btn btn-warning">Log out</button></a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <!--report stat barcharts-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mt-5">
+          <div class="card-header bg-warning">
+            <h4>Booking by Day</h4>
+          </div>
+          <div class="card-body p-0" id="barChart1"></div>
+        </div>      
+      </div>
+      <div class="col-md-6">
+        <div class="card mt-5">
+          <div class="card-header bg-success text-light">
+            <h4>Booking by Month</h4>
+          </div>
+          <div class="card-body p-0" id="barChart2"></div>
+        </div>      
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+    
+    // Set Data
+    const data1 = google.visualization.arrayToDataTable([
+      [ 'Day', 'Count', { role: 'style' } ],
+      [ 'Mon', parseInt("{{ countDay.Mon }}"), 'color: LemonChiffon' ],
+      [ 'Tue', parseInt("{{ countDay.Tue }}"), 'color: LightPink' ],
+      [ 'Wed', parseInt("{{ countDay.Wed }}"), 'color: MediumSeaGreen' ],
+      [ 'Thu', parseInt("{{ countDay.Thu }}"), 'color: LightSalmon' ],
+      [ 'Fri', parseInt("{{ countDay.Fri }}"), 'color: LightSkyBlue' ],
+      [ 'Sat', parseInt("{{ countDay.Sat }}"), 'color: Lavender' ],
+      [ 'Sun', parseInt("{{ countDay.Sun }}"), 'color: OrangeRed' ],
+    ]);
+
+    const data2 = google.visualization.arrayToDataTable([
+      [ 'Month', 'Count', { role: 'style' }],
+      [ 'Jan', parseInt("{{ countMonth.Jan }}"), 'color: LemonChiffon' ],
+      [ 'Feb', parseInt("{{ countMonth.Feb }}"), 'color: LightPink' ],
+      [ 'Mar', parseInt("{{ countMonth.Mar }}"), 'color: MediumSeaGreen' ],
+      [ 'Apr', parseInt("{{ countMonth.Apr }}"), 'color: LightSalmon' ],
+      [ 'May', parseInt("{{ countMonth.May }}"), 'color: LightSkyBlue' ],
+      [ 'Jun', parseInt("{{ countMonth.Jun }}"), 'color: Lavender' ],
+      [ 'Jul', parseInt("{{ countMonth.Jul }}"), 'color: OrangeRed' ],
+      [ 'Aug', parseInt("{{ countMonth.Aug }}"), 'color: LemonChiffon' ],
+      [ 'Sep', parseInt("{{ countMonth.Sep }}"), 'color: LightPink' ],
+      [ 'Oct', parseInt("{{ countMonth.Oct }}"), 'color: MediumSeaGreen' ],
+      [ 'Nov', parseInt("{{ countMonth.Nov }}"), 'color: LightSalmon' ],
+      [ 'Dec', parseInt("{{ countMonth.Dec }}"), 'color: LightSkyBlue' ],
+    ]);
+    
+    // Set Options
+    const options = {
+      title:'',
+      legend: { position: "none" },
+      fontName: 'Kanit',
+      fontSize: 16,
+      width: window.innerWidth/2.3,
+      height: window.innerHeight/1.5,
+    };
+
+    var view1 = new google.visualization.DataView(data1);
+    view1.setColumns([0, 1,
+                      { calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation" },
+                      2]);
+
+    var view2 = new google.visualization.DataView(data2);
+    view2.setColumns([0, 1,
+                      { calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation" },
+                      2]);
+    
+    // Draw
+    const chart1 = new google.visualization.ColumnChart(document.getElementById('barChart1'));
+    chart1.draw(view1, options);
+    const chart2 = new google.visualization.ColumnChart(document.getElementById('barChart2'));
+    chart2.draw(view2, options);
+    
+    }
+  </script>
+    
+  <div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <p class="col-md-4 mb-0 text-muted">
+        ©2023 Bookga All rights reserved. <br />
+        123 Gourmet Lane, Bakersville, CA 98765
+      </p>
+  
+      <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      </a>
+  
+<!--
+    <ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="/account/about" class="nav-link px-2 text-muted">About</a></li>
+    </ul>
+-->
+    </footer>
+  </div>
+</body>
+{% endblock %}
