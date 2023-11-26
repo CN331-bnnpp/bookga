@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.contrib import messages
 from .forms import ShiftForm 
@@ -86,7 +87,8 @@ def generate_schedule(table, book):
         num_hours = activity.num_hours
 
         # Find the day of the week
-        day = start_time.strftime('%a')
+        tz = datetime.timezone(datetime.timedelta(hours=7))
+        day = start_time.astimezone(tz).strftime('%a')
 
         # Find the index of the activity
         index = (start_time.hour + 7)%24
