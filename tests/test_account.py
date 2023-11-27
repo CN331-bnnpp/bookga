@@ -64,7 +64,7 @@ class AccountViewsTest(TestCase):
             group_name=self.group,
         )
             
-    def test_signup(self):
+    def test_signup_views(self):
         # test signup funtion in account/views.py
         response = self.client.get(reverse("signup"))
 
@@ -97,7 +97,7 @@ class AccountViewsTest(TestCase):
         self.assertEqual(group.objects.count(), 2)
         self.assertEqual(group_member.objects.count(), 1)
             
-    def test_login(self):
+    def test_login_views(self):
         # test login funtion in account/views.py
         response = self.client.get(reverse("login"))
 
@@ -141,7 +141,7 @@ class AccountViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "account/login.html")
             
-    def test_logout(self):
+    def test_logout_views(self):
         # test logout funtion in account/views.py
         self.client.login(username="testuser", password="testuser")
         response = self.client.get(reverse("logout"))
