@@ -86,6 +86,8 @@ def generate_schedule(table, book):
         start_time = activity.start_time
         num_hours = activity.num_hours
 
+        if not start_time.strftime("%U") == datetime.datetime.now().strftime("%U"):
+            continue
         # Find the day of the week
         tz = datetime.timezone(datetime.timedelta(hours=7))
         day = start_time.astimezone(tz).strftime('%a')
