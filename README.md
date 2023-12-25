@@ -19,7 +19,7 @@ web application for book work shift for employee and shift schedule management f
 ## Tracking
 - [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2682188)
 - [Github](https://github.com/CN331-bnnpp/bookga)
-- [Website](http://139.162.63.39/)
+- [Website](http://bookga.partyteatime.in.th/) - **Server Closed Date: 28/10/2023**
 
 ## Team Members
 6410615022&emsp;chanyanuch jumnongnit  <br>
